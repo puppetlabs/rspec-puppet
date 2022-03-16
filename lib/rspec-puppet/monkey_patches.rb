@@ -163,11 +163,11 @@ module Puppet
 
       def path_to_uri(*args)
         if RSpec::Puppet.rspec_puppet_example?
+          old_path_to_uri(*args)
+        else
           RSpec::Puppet::Consts.without_stubs do
             old_path_to_uri(*args)
           end
-        else
-          old_path_to_uri(*args)
         end
       end
       module_function :path_to_uri
