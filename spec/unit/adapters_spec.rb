@@ -204,6 +204,11 @@ describe RSpec::Puppet::Adapters::Adapter6X, :if => Puppet::Util::Package.versio
 
   let(:test_context) { double :environment => 'rp_env' }
 
+  it 'sets Puppet[:strict_variables] to false by default' do
+    subject.setup_puppet(test_context)
+    expect(Puppet[:include_legacy_facts]).to eq(true)
+  end
+
   describe '#setup_puppet' do
     describe 'when managing the facter_implementation' do
       after(:each) do

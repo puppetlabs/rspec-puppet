@@ -169,6 +169,7 @@ module RSpec::Puppet
           [:hiera_config, :hiera_config],
           [:strict_variables, :strict_variables],
           [:manifest, :manifest],
+          [:include_legacy_facts, :include_legacy_facts],
         ])
       end
 
@@ -263,6 +264,7 @@ module RSpec::Puppet
         super.concat([
           [:basemodulepath, :basemodulepath],
           [:vendormoduledir, :vendormoduledir],
+          [:include_legacy_facts, :include_legacy_facts],
         ])
       end
 
