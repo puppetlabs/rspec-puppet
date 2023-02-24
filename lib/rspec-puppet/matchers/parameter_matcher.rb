@@ -28,6 +28,8 @@ module RSpec::Puppet
         actual = resource[@parameter]
         expected = @value
 
+        actual = RSpec::Puppet::Sensitive.new(actual.unwrap) if actual.is_a?(Puppet::Pops::Types::PSensitiveType::Sensitive)
+
         # Puppet flattens an array with a single value into just the value and
         # this can cause confusion when testing as people expect when you put
         # an array in, you'll get an array out.
