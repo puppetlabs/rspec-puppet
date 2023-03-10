@@ -227,3 +227,12 @@ with `__` (two underscores).
 {% highlight ruby %}
 it { is_expected.to have_apache__vhost_resource_count(3) }
 {% endhighlight %}
+
+### Testing a sensitive content
+
+It can be tested that a Sensitive parameter value passed to template is present as expected.
+
+{% highlight ruby %}
+it { is_expected.to contain_file('/etc/mysecret.conf')..with_content(sensitive(%r{^Token==MySecretTokenValue$})) }
+{% endhighlight %}
+
