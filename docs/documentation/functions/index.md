@@ -97,3 +97,28 @@ describe 'ensure_resource' do
   end
 end
 {% endhighlight %}
+
+## Mocking a function for use in all tests
+    
+You may not need to test a function itself, but a calling class may require the function
+to return a value. You can mock the function once and make it available to all test.
+Modify *spec/spec_helper_local.rb* and use `Puppet::Parser::Functions.newfunction()`
+to add the function inside of an `RSpec.configure` block. For example:
+    
+{% highlight ruby %}
+RSpec.configure do | c|
+  c.before :each do
+    # The vault_lookup function takes a single argument and returns a hash with three keys
+    Puppet::Parser::Functions.newfunction(:vault_lookup, type: :rvalue) do |_args|
+      {
+        domain: 'test',
+        username: 'test',
+        password: 'test'
+      }
+    end
+  end
+end
+{% endhighlight %}
+
+You may add multiple functions and other configuration elements inside the `c.before :each do`
+block and all will be available inside every test.
