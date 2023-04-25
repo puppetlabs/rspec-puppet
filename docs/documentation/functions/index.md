@@ -102,8 +102,9 @@ end
     
 You may not need to test a function itself, but a calling class may require the function
 to return a value. You can mock the function once and make it available to all test.
-Modify *spec/spec_helper_local.rb* and use `Puppet::Parser::Functions.newfunction()`
-to add the function inside of an `RSpec.configure` block. For example:
+Modify *spec/spec_helper.rb* (or *spec/spec_helper__local.rb* if you use the PDK) and
+use `Puppet::Parser::Functions.newfunction()` to add the function inside of an
+`RSpec.configure` block. For example:
     
 {% highlight ruby %}
 RSpec.configure do | c|
