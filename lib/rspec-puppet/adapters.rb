@@ -173,7 +173,8 @@ module RSpec::Puppet
           %i[environmentpath environmentpath],
           %i[hiera_config hiera_config],
           %i[strict_variables strict_variables],
-          %i[manifest manifest]
+          %i[manifest manifest],
+          %i[include_legacy_facts include_legacy_facts]
         )
       end
 
@@ -270,7 +271,8 @@ module RSpec::Puppet
       def settings_map
         super.push(
           %i[basemodulepath basemodulepath],
-          %i[vendormoduledir vendormoduledir]
+          %i[vendormoduledir vendormoduledir],
+          %i[include_legacy_facts include_legacy_facts]
         )
       end
 
