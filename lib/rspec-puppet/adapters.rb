@@ -36,18 +36,7 @@ module RSpec::Puppet
       # @param example_group [RSpec::Core::ExampleGroup] The RSpec context to use for local settings
       # @return [void]
       def setup_puppet(example_group)
-        case RSpec.configuration.facter_implementation.to_sym
-        when :rspec
-          # Lazily instantiate FacterTestImpl here to optimize memory
-          # allocation, as the proc will only be called if FacterImpl is unset
-          set_facter_impl(proc { RSpec::Puppet::FacterTestImpl.new })
-        when :facter
-          set_facter_impl(Facter)
-        else
-          raise "Unsupported facter_implementation '#{RSpec.configuration.facter_implementation}'"
-        end
-
-        Puppet.runtime[:facter] = FacterImpl
+        Puppet.runtime[:facter] = cached_facter_impl
 
         settings = settings_map.map do |puppet_setting, rspec_setting|
           [puppet_setting, get_setting(example_group, rspec_setting)]
@@ -169,15 +158,26 @@ module RSpec::Puppet
       # @api private
       #
       # Set the FacterImpl constant to the given Facter implementation or noop
-      # if the constant is already set. If a proc is given, it will only be
-      # called if FacterImpl is not defined.
-      #
-      # @param impl [Object, Proc] An object or a proc that implements the Facter API
-      def set_facter_impl(impl)
-        return if defined?(FacterImpl)
+      # if the constant is already set.
+      def cached_facter_impl
+        return FacterImpl if defined?(FacterImpl)
 
-        impl = impl.call if impl.is_a?(Proc)
+        impl = facter_impl
         Object.send(:const_set, :FacterImpl, impl)
+        impl
+      end
+
+      # @summary Return the Facter implementation based on the configuration
+      # @api private
+      def facter_impl
+        case RSpec.configuration.facter_implementation.to_sym
+        when :rspec
+          RSpec::Puppet::FacterTestImpl.new
+        when :facter
+          set_facter_impl(Facter)
+        else
+          raise "Unsupported facter_implementation '#{RSpec.configuration.facter_implementation}'"
+        end
       end
     end
 

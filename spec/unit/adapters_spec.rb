@@ -88,51 +88,53 @@ describe RSpec::Puppet::Adapters::Base do
         expect(Puppet[:confdir]).to match(%r{(C:)?/etc/sockpuppet})
       end
     end
+  end
 
-    describe 'when the setting is not available on the given version of Puppet' do
-      it 'logs a warning about the setting' do
-      end
+  describe '#cached_facter_impl' do
+    subject { described_class.send(:cached_facter_impl) }
+
+    before do
+      Object.send(:remove_const, :FacterImpl) if defined? FacterImpl
+    end
+
+    after do
+      Object.send(:remove_const, :FacterImpl) if defined? FacterImpl
+    end
+
+    it 'uses facter as default implementation' do
+      is_expected.to be(Facter)
+    end
+
+    it 'uses the rspec implementation' do
+      allow(RSpec.configuration).to receive(:facter_implementation).and_return(:rspec)
+      is_expected.to be_a(RSpec::Puppet::FacterTestImpl)
+    end
+
+    it 'ensures consistency of FacterImpl in subsequent example groups' do
+      allow(RSpec.configuration).to receive(:facter_implementation).and_return(:facter)
+      is_expected.to be(Facter)
+
+      allow(RSpec.configuration).to receive(:facter_implementation).and_return(:rspec)
+      is_expected.to be(Facter)
     end
   end
 
-  describe '#setup_puppet' do
-    describe 'when managing the facter_implementation' do
-      after do
-        Object.send(:remove_const, :FacterImpl) if defined? FacterImpl
-      end
+  describe '#facter_impl' do
+    subject { described_class.send(:facter_impl) }
 
-      it 'uses facter as default implementation' do
-        context = context_double
-        subject.setup_puppet(context)
-        expect(FacterImpl).to be(Facter)
-      end
+    it 'supports facter' do
+      allow(RSpec.configuration).to receive(:facter_implementation).and_return(:facter)
+      is_expected.to be(Facter)
+    end
 
-      it 'uses the hash implementation if set and if puppet supports runtimes' do
-        context = context_double
-        Puppet.runtime[:facter] = 'something'
-        allow(RSpec.configuration).to receive(:facter_implementation).and_return('rspec')
-        subject.setup_puppet(context)
-        expect(FacterImpl).to be_a(RSpec::Puppet::FacterTestImpl)
-      end
+    it 'supports rspec' do
+      allow(RSpec.configuration).to receive(:facter_implementation).and_return(:rspec)
+      is_expected.to be_a(RSpec::Puppet::FacterTestImpl)
+    end
 
-      it 'ensures consistency of FacterImpl in subsequent example groups' do
-        context = context_double
-
-        # Pretend that FacterImpl is already initialized from a previous example group
-        Puppet.runtime[:facter] = RSpec::Puppet::FacterTestImpl.new
-        Object.send(:const_set, :FacterImpl, Puppet.runtime[:facter])
-
-        allow(RSpec.configuration).to receive(:facter_implementation).and_return('rspec')
-        subject.setup_puppet(context)
-        expect(FacterImpl).to eq(Puppet.runtime[:facter])
-      end
-
-      it 'raises if given an unsupported option' do
-        context = context_double
-        allow(RSpec.configuration).to receive(:facter_implementation).and_return('salam')
-        expect { subject.setup_puppet(context) }
-          .to raise_error(RuntimeError, "Unsupported facter_implementation 'salam'")
-      end
+    it 'raises if given an unsupported option' do
+      allow(RSpec.configuration).to receive(:facter_implementation).and_return(:salam)
+      expect { subject }.to raise_error(RuntimeError, "Unsupported facter_implementation 'salam'")
     end
   end
 end
