@@ -4,6 +4,7 @@ require 'rspec-puppet/cache'
 require 'rspec-puppet/adapters'
 require 'rspec-puppet/raw_string'
 require 'rspec-puppet/sensitive'
+require 'rspec-puppet/legacy_facts'
 
 module RSpec::Puppet
   module Support
@@ -285,7 +286,11 @@ module RSpec::Puppet
 
       # Facter currently supports lower case facts.  Bug FACT-777 has been submitted to support case sensitive
       # facts.
-      result_facts.transform_keys(&:downcase)
+      result_facts.transform_keys!(&:downcase)
+
+      # Prune legacy facts wherever they came from (rspec-puppet, rspec-puppet-facts, default_facts etc.)
+      result_facts.delete_if { |fact, _value| RspecPuppet::LegacyFacts.legacy_fact?(fact) } unless RSpec.configuration.include_legacy_facts
+      result_facts
     end
 
     def node_params_hash

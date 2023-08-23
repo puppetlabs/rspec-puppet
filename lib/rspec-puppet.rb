@@ -62,6 +62,7 @@ RSpec.configure do |c|
   c.add_setting :fixture_hiera_configs, default: {}
   c.add_setting :use_fixture_spec_hiera, default: false
   c.add_setting :fallback_to_default_hiera, default: true
+  c.add_setting :include_legacy_facts, default: Gem::Version.new(Puppet::PUPPETVERSION) < Gem::Version.new('8.0.0')
 
   c.instance_eval do
     def trusted_server_facts
