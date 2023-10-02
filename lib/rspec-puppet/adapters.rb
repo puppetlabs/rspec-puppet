@@ -12,12 +12,6 @@ module RSpec::Puppet
       # executing RSpec context. When a setting is specified both in the global configuration and in
       # the example group, the setting in the example group is preferred.
       #
-      # @example Configuring a Puppet setting from a global RSpec configuration value
-      #   RSpec.configure do |config|
-      #     config.parser = "future"
-      #   end
-      #   # => Puppet[:parser] will be future
-      #
       # @example Configuring a Puppet setting from within an RSpec example group
       #   RSpec.describe 'my_module::my_class', :type => :class do
       #     let(:module_path) { "/Users/luke/modules" }
@@ -42,6 +36,19 @@ module RSpec::Puppet
       # @param example_group [RSpec::Core::ExampleGroup] The RSpec context to use for local settings
       # @return [void]
       def setup_puppet(example_group)
+        case RSpec.configuration.facter_implementation.to_sym
+        when :rspec
+          # Lazily instantiate FacterTestImpl here to optimize memory
+          # allocation, as the proc will only be called if FacterImpl is unset
+          set_facter_impl(proc { RSpec::Puppet::FacterTestImpl.new })
+        when :facter
+          set_facter_impl(Facter)
+        else
+          raise "Unsupported facter_implementation '#{RSpec.configuration.facter_implementation}'"
+        end
+
+        Puppet.runtime[:facter] = FacterImpl
+
         settings = settings_map.map do |puppet_setting, rspec_setting|
           [puppet_setting, get_setting(example_group, rspec_setting)]
         end.flatten
@@ -56,23 +63,44 @@ module RSpec::Puppet
           end
         end
 
-        if Puppet.settings.respond_to?(:initialize_app_defaults)
-          Puppet.settings.initialize_app_defaults(settings_hash)
+        Puppet.settings.initialize_app_defaults(settings_hash)
 
-          # Forcefully apply the environmentpath setting instead of relying on
-          # the application defaults as Puppet::Test::TestHelper automatically
-          # sets this value as well, overriding our application default
-          Puppet.settings[:environmentpath] = settings_hash[:environmentpath] if settings_hash.key?(:environmentpath)
-        else
-          # Set settings the old way for Puppet 2.x, because that's how
-          # they're defaulted in that version of Puppet::Test::TestHelper and
-          # we won't be able to override them otherwise.
-          settings_hash.each do |setting, value|
-            Puppet.settings[setting] = value
-          end
-        end
+        # Forcefully apply the environmentpath setting instead of relying on
+        # the application defaults as Puppet::Test::TestHelper automatically
+        # sets this value as well, overriding our application default
+        Puppet.settings[:environmentpath] = settings_hash[:environmentpath] if settings_hash.key?(:environmentpath)
 
         @environment_name = example_group.environment
+
+        modulepath = if (rspec_modulepath = RSpec.configuration.module_path)
+                       rspec_modulepath.split(File::PATH_SEPARATOR)
+                     else
+                       Puppet[:environmentpath].split(File::PATH_SEPARATOR).map do |path|
+                         File.join(path, 'fixtures', 'modules')
+                       end
+                     end
+
+        manifest_paths = Puppet[:environmentpath].split(File::PATH_SEPARATOR).map do |path|
+          File.join(path, 'fixtures', 'manifests')
+        end
+
+        manifest = manifest_paths.find do |path|
+          File.exist?(path)
+        end
+
+        manifest ||= Puppet::Node::Environment::NO_MANIFEST
+
+        env = Puppet::Node::Environment.create(@environment_name, modulepath, manifest)
+        loader = Puppet::Environments::Static.new(env)
+
+        Puppet.push_context(
+          {
+            environments: loader,
+            current_environment: env,
+            loaders: (Puppet::Pops::Loaders.new(env))
+          },
+          'Setup rspec-puppet environments'
+        )
       end
 
       def get_setting(example_group, rspec_setting)
@@ -84,12 +112,23 @@ module RSpec::Puppet
       end
 
       def catalog(node, exported)
-        if exported
-          # Use the compiler directly to skip the filtering done by the indirector
-          Puppet::Parser::Compiler.compile(node).filter { |r| !r.exported? }
-        else
-          Puppet::Resource::Catalog.indirection.find(node.name, use_node: node)
+        node.environment = current_environment
+        # Override $::environment to workaround PUP-5835, where Puppet otherwise
+        # stores a symbol for the parameter
+        if node.parameters['environment'] != node.parameters['environment'].to_s
+          node.parameters['environment'] = current_environment.name.to_s
         end
+
+        catalog = if exported
+                    # Use the compiler directly to skip the filtering done by the indirector
+                    Puppet::Parser::Compiler.compile(node).filter { |r| !r.exported? }
+                  else
+                    Puppet::Resource::Catalog.indirection.find(node.name, use_node: node)
+                  end
+
+        Puppet::Pops::Evaluator::DeferredResolver.resolve_and_replace(node.facts, catalog)
+
+        catalog
       end
 
       def current_environment
@@ -99,23 +138,34 @@ module RSpec::Puppet
       def settings_map
         [
           %i[modulepath module_path],
+          %i[basemodulepath basemodulepath],
           %i[config config],
-          %i[confdir confdir]
+          %i[confdir confdir],
+          %i[environmentpath environmentpath],
+          %i[hiera_config hiera_config],
+          %i[strict_variables strict_variables],
+          %i[vendormoduledir vendormoduledir]
         ]
       end
 
+      def current_environment
+        Puppet.lookup(:current_environment)
+      end
+
       def modulepath
-        Puppet[:modulepath].split(File::PATH_SEPARATOR)
+        current_environment.modulepath
       end
 
       # @return [String, nil] The path to the Puppet manifest if it is present and set, nil otherwise.
       def manifest
-        Puppet[:manifest]
+        m = current_environment.manifest
+        if m == Puppet::Node::Environment::NO_MANIFEST
+          nil
+        else
+          m
+        end
       end
-    end
 
-    class Adapter40 < Base
-      #
       # @api private
       #
       # Set the FacterImpl constant to the given Facter implementation or noop
@@ -129,223 +179,11 @@ module RSpec::Puppet
         impl = impl.call if impl.is_a?(Proc)
         Object.send(:const_set, :FacterImpl, impl)
       end
-
-      def setup_puppet(example_group)
-        super
-
-        modulepath = if (rspec_modulepath = RSpec.configuration.module_path)
-                       rspec_modulepath.split(File::PATH_SEPARATOR)
-                     else
-                       Puppet[:environmentpath].split(File::PATH_SEPARATOR).map do |path|
-                         File.join(path, 'fixtures', 'modules')
-                       end
-                     end
-
-        if (rspec_manifest = RSpec.configuration.manifest)
-          manifest = rspec_manifest
-        else
-          manifest_paths = Puppet[:environmentpath].split(File::PATH_SEPARATOR).map do |path|
-            File.join(path, 'fixtures', 'manifests')
-          end
-
-          manifest = manifest_paths.find do |path|
-            File.exist?(path)
-          end
-
-          manifest ||= Puppet::Node::Environment::NO_MANIFEST
-        end
-
-        env = Puppet::Node::Environment.create(@environment_name, modulepath, manifest)
-        loader = Puppet::Environments::Static.new(env)
-
-        Puppet.push_context(
-          {
-            environments: loader,
-            current_environment: env,
-            loaders: (Puppet::Pops::Loaders.new(env) if Gem::Version.new(Puppet.version) >= Gem::Version.new('6.0.0'))
-          },
-          'Setup rspec-puppet environments'
-        )
-      end
-
-      def settings_map
-        super.push(
-          %i[environmentpath environmentpath],
-          %i[hiera_config hiera_config],
-          %i[strict_variables strict_variables],
-          %i[manifest manifest]
-        )
-      end
-
-      def catalog(node, exported)
-        node.environment = current_environment
-        # Override $::environment to workaround PUP-5835, where Puppet otherwise
-        # stores a symbol for the parameter
-        if node.parameters['environment'] != node.parameters['environment'].to_s
-          node.parameters['environment'] =
-            current_environment.name.to_s
-        end
-        super
-      end
-
-      def current_environment
-        Puppet.lookup(:current_environment)
-      end
-
-      def modulepath
-        current_environment.modulepath
-      end
-
-      # Puppet 4.0 specially handles environments that don't have a manifest set, so we check for the no manifest value
-      # and return nil when it is set.
-      #
-      # @return [String, nil] The path to the Puppet manifest if it is present and set, nil otherwise.
-      def manifest
-        m = current_environment.manifest
-        if m == Puppet::Node::Environment::NO_MANIFEST
-          nil
-        else
-          m
-        end
-      end
-    end
-
-    class Adapter4X < Adapter40
-      def setup_puppet(example_group)
-        super
-
-        set_facter_impl(Facter)
-      end
-
-      def settings_map
-        super.push(
-          %i[trusted_server_facts trusted_server_facts]
-        )
-      end
-    end
-
-    class Adapter6X < Adapter40
-      #
-      # @api private
-      #
-      # Check to see if Facter runtime implementations are supported in the
-      # current Puppet version
-      #
-      # @return [Boolean] true if runtime implementations are supported
-      def supports_facter_runtime?
-        unless defined?(@supports_facter_runtime)
-          begin
-            Puppet.runtime[:facter]
-            @supports_facter_runtime = true
-          rescue StandardError
-            @supports_facter_runtime = false
-          end
-        end
-
-        @supports_facter_runtime
-      end
-
-      def setup_puppet(example_group)
-        case RSpec.configuration.facter_implementation.to_sym
-        when :rspec
-          if supports_facter_runtime?
-            # Lazily instantiate FacterTestImpl here to optimize memory
-            # allocation, as the proc will only be called if FacterImpl is unset
-            set_facter_impl(proc { RSpec::Puppet::FacterTestImpl.new })
-            Puppet.runtime[:facter] = FacterImpl
-          else
-            warn "Facter runtime implementations are not supported in Puppet #{Puppet.version}, continuing with facter_implementation 'facter'"
-            RSpec.configuration.facter_implementation = :facter
-            set_facter_impl(Facter)
-          end
-        when :facter
-          set_facter_impl(Facter)
-        else
-          raise "Unsupported facter_implementation '#{RSpec.configuration.facter_implementation}'"
-        end
-
-        super
-      end
-
-      def settings_map
-        super.push(
-          %i[basemodulepath basemodulepath],
-          %i[vendormoduledir vendormoduledir]
-        )
-      end
-
-      def catalog(node, _exported)
-        super.tap do |c|
-          Puppet::Pops::Evaluator::DeferredResolver.resolve_and_replace(node.facts, c)
-        end
-      end
-    end
-
-    class Adapter30 < Base
-      def settings_map
-        super.push(
-          %i[manifestdir manifest_dir],
-          %i[manifest manifest],
-          %i[templatedir template_dir],
-          %i[hiera_config hiera_config]
-        )
-      end
-    end
-
-    class Adapter32 < Adapter30
-      def settings_map
-        super.push(
-          %i[parser parser]
-        )
-      end
-    end
-
-    class Adapter33 < Adapter32
-      def settings_map
-        super.push(
-          %i[ordering ordering],
-          %i[stringify_facts stringify_facts]
-        )
-      end
-    end
-
-    class Adapter34 < Adapter33
-      def settings_map
-        super.push(
-          %i[trusted_node_data trusted_node_data]
-        )
-      end
-    end
-
-    class Adapter35 < Adapter34
-      def settings_map
-        super.push(
-          %i[strict_variables strict_variables]
-        )
-      end
-    end
-
-    class Adapter27 < Base
-      def settings_map
-        super.push(
-          %i[manifestdir manifest_dir],
-          %i[manifest manifest],
-          %i[templatedir template_dir]
-        )
-      end
     end
 
     def self.get
       [
-        ['6.0', Adapter6X],
-        ['4.1', Adapter4X],
-        ['4.0', Adapter40],
-        ['3.5', Adapter35],
-        ['3.4', Adapter34],
-        ['3.3', Adapter33],
-        ['3.2', Adapter32],
-        ['3.0', Adapter30],
-        ['2.7', Adapter27]
+        ['7.11', Base]
       ].each do |(version, klass)|
         return klass.new if Puppet::Util::Package.versioncmp(Puppet.version, version) >= 0
       end
