@@ -327,7 +327,6 @@ RSpec/SubjectStub:
 # Configuration parameters: IgnoreNameless, IgnoreSymbolicNames.
 RSpec/VerifiedDoubles:
   Exclude:
-    - 'spec/spec_helper_unit.rb'
     - 'spec/unit/adapters_spec.rb'
     - 'spec/unit/example/function_example_group_spec.rb'
     - 'spec/unit/matchers/allow_value_spec.rb'
