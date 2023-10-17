@@ -1000,6 +1000,10 @@ If you run into an issue with this tool or would like to request a feature you c
 
 If you have problems getting this tool up and running, please contact Support.
 
+## License
+
+This codebase is licensed under Apache 2.0. However, the open source dependencies included in this codebase might be subject to other software licenses such as AGPL, GPL2.0, and MIT.
+
 ## Thank you
 
 Many thanks to the original author of rspec-puppet Tim Sharpe (@rodjek).
