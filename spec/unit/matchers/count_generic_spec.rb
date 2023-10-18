@@ -2,7 +2,7 @@
 
 require 'spec_helper_unit'
 
-describe RSpec::Puppet::ManifestMatchers::CountGeneric do
+describe Puppetlabs::RSpecPuppet::ManifestMatchers::CountGeneric do
   subject(:matcher) { described_class.new(type, expected, method) }
 
   let(:actual) do

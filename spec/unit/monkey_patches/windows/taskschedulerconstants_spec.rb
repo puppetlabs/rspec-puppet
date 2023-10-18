@@ -11,7 +11,7 @@ klass = if defined?(Win32::TaskScheduler::TaskSchedulerConstants)
 describe klass do
   subject { described_class }
 
-  let(:stub_class) { RSpec::Puppet::Windows::TaskSchedulerConstants }
+  let(:stub_class) { Puppetlabs::RSpecPuppet::Windows::TaskSchedulerConstants }
 
   context 'on non-windows', unless: windows? do
     it { is_expected.not_to be_nil }

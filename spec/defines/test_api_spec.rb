@@ -16,7 +16,7 @@ describe 'sysctl' do
     end
 
     it 'is included in the coverage filter' do
-      expect(RSpec::Puppet::Coverage.filters).to include('Sysctl[vm.swappiness]')
+      expect(Puppetlabs::RSpecPuppet::Coverage.filters).to include('Sysctl[vm.swappiness]')
     end
   end
 end

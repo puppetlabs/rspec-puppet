@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/adapters'
+require 'puppetlabs/rspec-puppet/adapters'
 
 def context_double(options = {})
   double({ environment: 'rp_puppet' }.merge(options))
 end
 
-describe RSpec::Puppet::Adapters::Base do
+describe Puppetlabs::RSpecPuppet::Adapters::Base do
   let(:test_context) { double environment: 'rp_env' }
 
   describe '#setup_puppet' do
@@ -116,14 +116,14 @@ describe RSpec::Puppet::Adapters::Base do
         Puppet.runtime[:facter] = 'something'
         allow(RSpec.configuration).to receive(:facter_implementation).and_return('rspec')
         subject.setup_puppet(context)
-        expect(FacterImpl).to be_a(RSpec::Puppet::FacterTestImpl)
+        expect(FacterImpl).to be_a(Puppetlabs::RSpecPuppet::FacterTestImpl)
       end
 
       it 'ensures consistency of FacterImpl in subsequent example groups' do
         context = context_double
 
         # Pretend that FacterImpl is already initialized from a previous example group
-        Puppet.runtime[:facter] = RSpec::Puppet::FacterTestImpl.new
+        Puppet.runtime[:facter] = Puppetlabs::RSpecPuppet::FacterTestImpl.new
         Object.send(:const_set, :FacterImpl, Puppet.runtime[:facter])
 
         allow(RSpec.configuration).to receive(:facter_implementation).and_return('rspec')

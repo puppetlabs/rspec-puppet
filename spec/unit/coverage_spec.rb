@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/coverage'
-require 'rspec-puppet/support'
+require 'puppetlabs/rspec-puppet/coverage'
+require 'puppetlabs/rspec-puppet/support'
 
-describe RSpec::Puppet::Coverage do
+describe Puppetlabs::RSpecPuppet::Coverage do
   subject { described_class.new }
 
   # Save and restore the global coverage object so that these tests don't

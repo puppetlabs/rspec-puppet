@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Win32::Registry do
   subject { described_class }
 
-  let(:stub_class) { RSpec::Puppet::Win32::Registry }
+  let(:stub_class) { Puppetlabs::RSpecPuppet::Win32::Registry }
 
   context 'on non-windows', unless: windows? do
     it { is_expected.not_to be_nil }

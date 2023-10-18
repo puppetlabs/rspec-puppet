@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/adapters'
+require 'puppetlabs/rspec-puppet/adapters'
 
-describe RSpec::Puppet::Support do
+describe Puppetlabs::RSpecPuppet::Support do
   subject do
     Object.new.extend(described_class)
   end
 
   describe '#setup_puppet' do
     before do
-      adapter = RSpec::Puppet::Adapters.get
+      adapter = Puppetlabs::RSpecPuppet::Adapters.get
       adapter.setup_puppet(subject)
       subject.adapter = adapter
     end

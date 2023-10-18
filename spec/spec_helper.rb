@@ -12,7 +12,7 @@ if ENV['COVERAGE']
   end
 end
 
-require 'rspec-puppet'
+require 'puppetlabs/rspec-puppet'
 
 # TODO: drop?
 def windows?
@@ -31,6 +31,6 @@ RSpec.configure do |c|
   c.manifest        = File.join(File.dirname(File.expand_path(__FILE__)), 'fixtures', 'manifests', 'site.pp')
 
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!(0)
+    Puppetlabs::RSpecPuppet::Coverage.report!(0)
   end
 end

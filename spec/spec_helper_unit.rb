@@ -12,4 +12,4 @@ if ENV['COVERAGE']
   end
 end
 
-require 'rspec-puppet'
+require 'puppetlabs/rspec-puppet'

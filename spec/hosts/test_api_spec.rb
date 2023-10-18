@@ -13,8 +13,8 @@ describe 'foo.example.com' do
     end
 
     it 'has resources in its coverage report' do
-      expect(RSpec::Puppet::Coverage.instance.results[:total]).to be > 0
-      expect(RSpec::Puppet::Coverage.instance.results[:resources]).to include('Notify[test]')
+      expect(Puppetlabs::RSpecPuppet::Coverage.instance.results[:total]).to be > 0
+      expect(Puppetlabs::RSpecPuppet::Coverage.instance.results[:resources]).to include('Notify[test]')
     end
   end
 end

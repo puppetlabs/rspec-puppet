@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/sensitive'
+require 'puppetlabs/rspec-puppet/sensitive'
 
-describe RSpec::Puppet::Sensitive do
+describe Puppetlabs::RSpecPuppet::Sensitive do
   subject(:sensitive) { described_class.new contents }
 
   let(:contents) { double :contents }

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/support'
+require 'puppetlabs/rspec-puppet/support'
 
-describe RSpec::Puppet::ManifestMatchers::Compile do
-  include RSpec::Puppet::Support
-  # override RSpec::Puppet::Support's subject with the original default
+describe Puppetlabs::RSpecPuppet::ManifestMatchers::Compile do
+  include Puppetlabs::RSpecPuppet::Support
+  # override Puppetlabs::RSpecPuppet::Support's subject with the original default
   subject { described_class.new }
 
   let(:catalogue) { -> { load_catalogue(:host) } }
@@ -172,7 +172,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
     context 'when expecting the failure' do
       let(:expected_error) do
-        'Evaluation Error: Error while evaluating a Function Call, failure (line: 52, column: 1) on node rspec::puppet::manifestmatchers::compile'
+        'Evaluation Error: Error while evaluating a Function Call, failure (line: 52, column: 1) on node RSpecPuppet::manifestmatchers::compile'
       end
 
       before { subject.and_raise_error(expected_error) }

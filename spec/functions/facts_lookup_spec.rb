@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rspec-puppet'
+require 'puppetlabs/rspec-puppet'
 
 describe 'structured_facts::lookup' do
   context 'with one set of values' do

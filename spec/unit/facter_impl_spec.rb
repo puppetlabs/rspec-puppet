@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/facter_impl'
+require 'puppetlabs/rspec-puppet/facter_impl'
 
-describe RSpec::Puppet::FacterTestImpl do
+describe Puppetlabs::RSpecPuppet::FacterTestImpl do
   subject(:facter_impl) { described_class.new }
 
   let(:fact_hash) do

@@ -8,7 +8,7 @@ require 'puppet'
 task :default => :test
 task :spec => :test
 
-require 'rspec-puppet/tasks/release_test'
+require 'puppetlabs/rspec-puppet/tasks/release_test'
 
 fixtures_dir = File.expand_path(File.join(__FILE__, '..', 'spec', 'fixtures', 'modules'))
 fixtures = {

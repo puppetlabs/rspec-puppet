@@ -34,7 +34,7 @@ RSpec.configure do |c|
   c.manifest        = File.join(File.dirname(File.expand_path(__FILE__)), 'fixtures', 'manifests', 'site.pp')
   # Coverage generation
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!
+    Puppetlabs::RSpecPuppet::Coverage.report!
   end
 end
 ```
@@ -960,7 +960,7 @@ your `spec_helper.rb`
 ```ruby
 RSpec.configure do |c|
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!
+    Puppetlabs::RSpecPuppet::Coverage.report!
   end
 end
 ```
@@ -974,7 +974,7 @@ A desired code coverage level can be provided. If this level is not achieved, a 
 ```ruby
 RSpec.configure do |c|
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!(95)
+    Puppetlabs::RSpecPuppet::Coverage.report!(95)
   end
 end
 ```

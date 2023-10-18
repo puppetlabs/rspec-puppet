@@ -9,25 +9,25 @@ breadcrumbs:
 ---
 ## Installation
 
-### Installing rspec-puppet
+### Installing puppetlabs-rspec-puppet
 
 If you are using [Bundler](https://bundler.io) to manage the gems in your
-module or control repository (highly recommended), you should add rspec-puppet
+module or control repository (highly recommended), you should add puppetlabs-rspec-puppet
 to your `Gemfile` and then run `bundle install`.
 
 {% highlight ruby %}
-gem 'rspec-puppet', '~> 2.0'
+gem 'puppetlabs-rspec-puppet', '~> 5.0'
 {% endhighlight %}
 
-Alternatively, you can install rspec-puppet using `gem`.
+Alternatively, you can install puppetlabs-rspec-puppet using `gem`.
 
 {% highlight console %}
-$ gem install rspec-puppet
+$ gem install puppetlabs-rspec-puppet
 {% endhighlight %}
 
 ### Installing Puppet
 
-rspec-puppet needs to have Puppet installed on the host in order to operate,
+puppetlabs-rspec-puppet needs to have Puppet installed on the host in order to operate,
 but does not have it specified in the gem as dependency as Puppet can be
 installed as a native package or gem.
 
@@ -48,8 +48,8 @@ will find in many open source modules that support multiple Puppet versions.
 
 ### Automatic setup
 
-rspec-puppet ships with a small script that will automate the setup process for
-you by creating the various files and directories that rspec and rspec-puppet
+puppetlabs-rspec-puppet ships with a small script that will automate the setup process for
+you by creating the various files and directories that rspec and puppetlabs-rspec-puppet
 require.
 
 {% highlight console %}
@@ -75,12 +75,12 @@ $ mkdir -p spec/fixtures/{manifests,modules}
 $ touch spec/fixtures/manifests/site.pp
 {% endhighlight %}
 
-RSpec needs to be configured to use rspec-puppet, which is done in the
+RSpec needs to be configured to use puppetlabs-rspec-puppet, which is done in the
 `spec/spec_helper.rb` file which should be created now with the following
 content.
 
 {% highlight ruby %}
-require 'rspec-puppet'
+require 'puppetlabs-rspec-puppet'
 
 RSpec.configure do |c|
   c.environmentpath = __dir__

@@ -2,7 +2,7 @@
 
 require 'spec_helper_unit'
 
-describe RSpec::Puppet::RawString do
+describe Puppetlabs::RSpecPuppet::RawString do
   subject(:raw_string) { described_class.new('some string') }
 
   describe '#inspect' do

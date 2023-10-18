@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe RSpec::Puppet::ManifestMatchers::ParameterMatcher do
+describe Puppetlabs::RSpecPuppet::ManifestMatchers::ParameterMatcher do
   describe '#matches?' do
     context 'with [1] expected' do
       subject do

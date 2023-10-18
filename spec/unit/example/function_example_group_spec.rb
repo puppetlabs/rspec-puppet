@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe RSpec::Puppet::FunctionExampleGroup::V4FunctionWrapper do
+describe Puppetlabs::RSpecPuppet::FunctionExampleGroup::V4FunctionWrapper do
   let(:name) { 'test_function' }
   let(:func) { double('func') }
   let(:global_scope) { double('global_scope') }
@@ -27,7 +27,7 @@ describe RSpec::Puppet::FunctionExampleGroup::V4FunctionWrapper do
   end
 end
 
-describe RSpec::Puppet::FunctionExampleGroup::V3FunctionWrapper do
+describe Puppetlabs::RSpecPuppet::FunctionExampleGroup::V3FunctionWrapper do
   let(:name) { 'test_function' }
   let(:func) { double('func') }
 

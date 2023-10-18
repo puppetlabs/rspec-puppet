@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/cache'
+require 'puppetlabs/rspec-puppet/cache'
 
-describe RSpec::Puppet::Cache do
+describe Puppetlabs::RSpecPuppet::Cache do
   subject do
     described_class.new do |args|
       compiler[args]

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib/puppetlabs])
 
-require 'rspec-puppet'
+require '../puppetlabs/rspec-puppet'
 require 'optparse'
 
 options = {
@@ -18,4 +18,4 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-RSpec::Puppet::Setup.run(options[:module_name])
+Puppetlabs::RSpecPuppet::Setup.run(options[:module_name])

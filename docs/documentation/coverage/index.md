@@ -16,7 +16,7 @@ test run by the following to your `spec/spec_helper.rb` file.
 {% highlight ruby %}
 RSpec.configure do |c|
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!
+    Puppetlabs::RSpecPuppet::Coverage.report!
   end
 end
 {% endhighlight %}
@@ -39,12 +39,12 @@ hook in a spec file).
 ## Setting A Minimum Coverage Level
 
 A desired code coverage percentage can be provided as an argument to
-`RSpec::Puppet::Coverage.report!`.
+`Puppetlabs::RSpecPuppet::Coverage.report!`.
 
 {% highlight ruby %}
 RSpec.configure do |c|
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!(95)
+    Puppetlabs::RSpecPuppet::Coverage.report!(95)
   end
 end
 {% endhighlight %}
@@ -63,9 +63,9 @@ use the `add_filter(type, title)` and `add_filter_regex(type, regex)` methods:
 RSpec.configure do |c|
   c.before(:suite) do
     # Exclude File[/tmp] from all coverage reports
-    RSpec::Puppet::Coverage.add_filter('File', '/tmp')
+    Puppetlabs::RSpecPuppet::Coverage.add_filter('File', '/tmp')
     # Exclude all anchor resources from all coverage reports
-    RSpec::Puppet::Coverage.add_filter_regex('Anchor', '.*')
+    Puppetlabs::RSpecPuppet::Coverage.add_filter_regex('Anchor', '.*')
   end
 end
 {% endhighlight %}

@@ -2,10 +2,10 @@
 
 require 'spec_helper_unit'
 
-describe RSpec::Puppet::FunctionMatchers::Run do
+describe Puppetlabs::RSpecPuppet::FunctionMatchers::Run do
   subject(:matcher) { described_class.new }
 
-  let(:wrapper) { instance_double(RSpec::Puppet::FunctionExampleGroup::V4FunctionWrapper) }
+  let(:wrapper) { instance_double(Puppetlabs::RSpecPuppet::FunctionExampleGroup::V4FunctionWrapper) }
 
   describe '#matches?' do
     context 'when the function takes no arguments and has no expected return value' do

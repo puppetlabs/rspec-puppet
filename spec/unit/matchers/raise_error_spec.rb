@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/support'
+require 'puppetlabs/rspec-puppet/support'
 
-describe RSpec::Puppet::GenericMatchers::RaiseError do
-  include RSpec::Puppet::GenericMatchers
+describe Puppetlabs::RSpecPuppet::GenericMatchers::RaiseError do
+  include Puppetlabs::RSpecPuppet::GenericMatchers
 
   context 'with a failing target' do
     subject { -> { raise 'catalogue load failed' } }

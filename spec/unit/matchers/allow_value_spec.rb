@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rspec-puppet/support'
+require 'puppetlabs/rspec-puppet/support'
 
-describe RSpec::Puppet::TypeAliasMatchers::AllowValue do
+describe Puppetlabs::RSpecPuppet::TypeAliasMatchers::AllowValue do
   subject { described_class.new(values) }
 
   let(:catalogue) { double('catalogue builder') }

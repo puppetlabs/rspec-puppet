@@ -23,11 +23,11 @@ describe 'test::bare_class' do
 
   describe 'coverage' do
     it 'class should be included in the coverage filter' do
-      expect(RSpec::Puppet::Coverage.filters).to include('Class[Test::Bare_class]')
+      expect(Puppetlabs::RSpecPuppet::Coverage.filters).to include('Class[Test::Bare_class]')
     end
 
     it 'does not include resources from other modules created with create_resources()' do
-      expect(RSpec::Puppet::Coverage.instance.results[:resources]).not_to include('Notify[create_resources notify]')
+      expect(Puppetlabs::RSpecPuppet::Coverage.instance.results[:resources]).not_to include('Notify[create_resources notify]')
       expect(subject).to contain_notify('create_resources notify')
     end
   end

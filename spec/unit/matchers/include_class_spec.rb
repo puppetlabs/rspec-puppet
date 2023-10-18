@@ -2,8 +2,8 @@
 
 require 'spec_helper_unit'
 
-describe 'RSpec::Puppet::ManifestMatchers.include_class' do
-  subject(:matcher) { Class.new { extend RSpec::Puppet::ManifestMatchers }.include_class(expected) }
+describe 'Puppetlabs::RSpecPuppet::ManifestMatchers.include_class' do
+  subject(:matcher) { Class.new { extend Puppetlabs::RSpecPuppet::ManifestMatchers }.include_class(expected) }
 
   let(:actual) do
     -> { instance_double(Puppet::Resource::Catalog, classes: included_classes) }
