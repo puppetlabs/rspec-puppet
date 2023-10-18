@@ -16,6 +16,8 @@
 * [Hiera integration](#hiera-integration)
 * [Producing coverage reports](#producing-coverage-reports)
 * [Related projects](#related-projects)
+* [Development](#development)
+* [License](#license)
 
 ## Installation
 
@@ -999,6 +1001,10 @@ If you find a bug in Puppet Lint or its results, please create an issue in the r
 If you run into an issue with this tool or would like to request a feature you can raise a PR with your suggested changes. Alternatively, you can raise a Github issue with a feature request or to report any bugs. Every other Tuesday the DevX team holds office hours in the Puppet Community Slack, where you can ask questions about this and any other supported tools. This session runs at 15:00 (GMT/BST) for about an hour.
 
 If you have problems getting this tool up and running, please contact Support.
+
+## License
+
+This codebase is licensed under Apache 2.0. However, the open source dependencies included in this codebase might be subject to other software licenses such as AGPL, GPL2.0, and MIT.
 
 ## Thank you
 
