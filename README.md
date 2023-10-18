@@ -16,6 +16,8 @@
 * [Hiera integration](#hiera-integration)
 * [Producing coverage reports](#producing-coverage-reports)
 * [Related projects](#related-projects)
+* [Development](#development)
+* [License](#license)
 
 ## Installation
 
