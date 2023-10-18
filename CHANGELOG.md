@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v5.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v5.0.0) - 2023-10-18
+
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.0...v5.0.0)
+
+### Changed
+- (CAT-1235) - Rename to puppetlabs-rspec-puppet [#76](https://github.com/puppetlabs/rspec-puppet/pull/76) ([jordanbreen28](https://github.com/jordanbreen28))
+
 ## [v4.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v4.0.0) - 2023-10-09
 
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v3.0.0...v4.0.0)
@@ -198,9 +205,6 @@ This release had unintended breaking changes and was withdrawn.
    Puppet settings (specifically `trusted_server_facts`) when running tests
    against the upcoming Puppet 6.0.0 release.
 
-<<<<<<< HEAD
-## [v2.12.0](https://github.com/puppetlabs/rspec-puppet/tree/v2.12.0) - 2022-07-21
-=======
 ## [2.6.14]
 
 ### Fixed
