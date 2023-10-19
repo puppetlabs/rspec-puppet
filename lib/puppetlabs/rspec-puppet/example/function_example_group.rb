@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     module FunctionExampleGroup
@@ -93,7 +94,7 @@ module Puppetlabs
           loaders = Puppet.lookup(:loaders)
           Puppet.override(context_overrides, 'rspec-test scope') do
             func = V4FunctionWrapper.new(function_name,
-                                        loaders.private_environment_loader.load(:function, function_name), context_overrides)
+                                         loaders.private_environment_loader.load(:function, function_name), context_overrides)
             @scope = context_overrides[:global_scope]
           end
 

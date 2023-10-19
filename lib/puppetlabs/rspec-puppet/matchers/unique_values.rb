@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     module ManifestMatchers
@@ -7,8 +8,8 @@ module Puppetlabs
       matcher :have_unique_values_for_all do |type, attribute|
         match do |catalogue|
           catalogue.call.resources.select { |rsrc| rsrc.type == type.capitalize }
-                  .group_by { |rsrc| rsrc[attribute.to_sym] }
-                  .all? { |_, group| group.size == 1 }
+                   .group_by { |rsrc| rsrc[attribute.to_sym] }
+                   .all? { |_, group| group.size == 1 }
         end
 
         description do

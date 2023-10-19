@@ -74,12 +74,12 @@ module Puppetlabs
           @environment_name = example_group.environment
 
           modulepath = if (rspec_modulepath = RSpec.configuration.module_path)
-                        rspec_modulepath.split(File::PATH_SEPARATOR)
-                      else
-                        Puppet[:environmentpath].split(File::PATH_SEPARATOR).map do |path|
-                          File.join(path, 'fixtures', 'modules')
-                        end
-                      end
+                         rspec_modulepath.split(File::PATH_SEPARATOR)
+                       else
+                         Puppet[:environmentpath].split(File::PATH_SEPARATOR).map do |path|
+                           File.join(path, 'fixtures', 'modules')
+                         end
+                       end
 
           if (rspec_manifest = RSpec.configuration.manifest)
             manifest = rspec_manifest

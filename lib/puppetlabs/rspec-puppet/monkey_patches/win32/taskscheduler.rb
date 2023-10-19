@@ -117,5 +117,5 @@ rescue LoadError
   end
 end
 
-# find the end causing the error in this file and comment it out  
+# find the end causing the error in this file and comment it out
 # Path: lib/puppetlabs/rspec-puppet/monkey_patches/win32/taskscheduler.rb

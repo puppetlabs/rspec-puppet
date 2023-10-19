@@ -1,15 +1,16 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     module ManifestMatchers
       def method_missing(method, *args, &block)
         if /^(create|contain)_/.match?(method.to_s)
           return Puppetlabs::RSpecPuppet::ManifestMatchers::CreateGeneric.new(method, *args,
-                                                                    &block)
+                                                                              &block)
         end
         if /^have_.+_count$/.match?(method.to_s)
           return Puppetlabs::RSpecPuppet::ManifestMatchers::CountGeneric.new(nil, args[0],
-                                                                  method)
+                                                                             method)
         end
         return Puppetlabs::RSpecPuppet::ManifestMatchers::Compile.new if method == :compile
 

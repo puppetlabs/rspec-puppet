@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     module Win32
@@ -38,7 +39,7 @@ module Puppetlabs
           KEY_NOTIFY = 0x0010
           KEY_CREATE_LINK = 0x0020
           KEY_READ = STANDARD_RIGHTS_READ |
-                    KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY
+                     KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY
           KEY_WRITE = STANDARD_RIGHTS_WRITE |
                       KEY_SET_VALUE | KEY_CREATE_SUB_KEY
           KEY_EXECUTE = KEY_READ
@@ -51,8 +52,8 @@ module Puppetlabs
           REG_OPTION_BACKUP_RESTORE = 0x0004
           REG_OPTION_OPEN_LINK = 0x0008
           REG_LEGAL_OPTION = REG_OPTION_RESERVED |
-                            REG_OPTION_NON_VOLATILE | REG_OPTION_CREATE_LINK |
-                            REG_OPTION_BACKUP_RESTORE | REG_OPTION_OPEN_LINK
+                             REG_OPTION_NON_VOLATILE | REG_OPTION_CREATE_LINK |
+                             REG_OPTION_BACKUP_RESTORE | REG_OPTION_OPEN_LINK
 
           REG_CREATED_NEW_KEY = 1
           REG_OPENED_EXISTING_KEY = 2

@@ -48,10 +48,10 @@ module Puppetlabs
 
       def stub_file_consts(example)
         type = if example.respond_to?(:metadata)
-                example.metadata[:type]
-              else
-                guess_type_from_path(example.example.metadata[:file_path])
-              end
+                 example.metadata[:type]
+               else
+                 guess_type_from_path(example.example.metadata[:file_path])
+               end
 
         munged_facts = facts_hash(nodename(type))
 
@@ -232,10 +232,10 @@ module Puppetlabs
         }
 
         result_facts = if RSpec.configuration.default_facts.any?
-                        munge_facts(RSpec.configuration.default_facts)
-                      else
-                        {}
-                      end
+                         munge_facts(RSpec.configuration.default_facts)
+                       else
+                         {}
+                       end
 
         # Merge in node facts so they always exist by default, but only if they
         # haven't been defined in `RSpec.configuration.default_facts`
@@ -314,10 +314,10 @@ module Puppetlabs
         if server_facts['servername'].nil?
           host = Puppet.runtime[:facter].value(:hostname)
           server_facts['servername'] = if (domain = Puppet.runtime[:facter].value(:domain))
-                                        [host, domain].join('.')
-                                      else
-                                        host
-                                      end
+                                         [host, domain].join('.')
+                                       else
+                                         host
+                                       end
         end
         server_facts
       end
@@ -376,15 +376,15 @@ module Puppetlabs
       def build_catalog_without_cache(nodename, facts_val, trusted_facts_val, hiera_config_val, code, exported,
                                       node_params, *_)
         build_catalog_without_cache_v2({
-                                        nodename: nodename,
-                                        facts_val: facts_val,
-                                        trusted_facts_val: trusted_facts_val,
-                                        hiera_config_val: hiera_config_val,
-                                        code: code,
-                                        exported: exported,
-                                        node_params: node_params,
-                                        trusted_external: {}
-                                      })
+                                         nodename: nodename,
+                                         facts_val: facts_val,
+                                         trusted_facts_val: trusted_facts_val,
+                                         hiera_config_val: hiera_config_val,
+                                         code: code,
+                                         exported: exported,
+                                         node_params: node_params,
+                                         trusted_external: {}
+                                       })
       end
 
       def build_catalog_without_cache_v2(

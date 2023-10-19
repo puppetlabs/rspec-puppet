@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     module ManifestMatchers
@@ -29,14 +30,14 @@ module Puppetlabs
           end
 
           @actual_number = if @type == 'resource'
-                            resources.count do |res|
-                              !%w[Class Node].include?(res.type)
-                            end
-                          else
-                            resources.count do |res|
-                              res.type == @resource_type
-                            end
-                          end
+                             resources.count do |res|
+                               !%w[Class Node].include?(res.type)
+                             end
+                           else
+                             resources.count do |res|
+                               res.type == @resource_type
+                             end
+                           end
 
           @actual_number == @expected_number
         end

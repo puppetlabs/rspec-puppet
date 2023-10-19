@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     # A wrapper representing Sensitive data type, eg. in class params.

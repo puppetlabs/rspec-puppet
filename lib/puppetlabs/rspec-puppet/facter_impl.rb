@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     # Implements a simple hash-based version of Facter to be used in module tests

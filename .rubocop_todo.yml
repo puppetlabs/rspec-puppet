@@ -10,13 +10,13 @@
 # Configuration parameters: IgnoreLiteralBranches, IgnoreConstantBranches.
 Lint/DuplicateBranch:
   Exclude:
-    - 'lib/rspec-puppet/matchers/compile.rb'
-    - 'lib/rspec-puppet/matchers/run.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/compile.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/run.rb'
 
 # Offense count: 1
 Lint/DuplicateMethods:
   Exclude:
-    - 'lib/rspec-puppet/adapters.rb'
+    - 'lib/puppetlabs/rspec-puppet/adapters.rb'
 
 # Offense count: 2
 # Configuration parameters: AllowComments, AllowEmptyLambdas.
@@ -29,40 +29,40 @@ Lint/EmptyBlock:
 # Configuration parameters: AllowedParentClasses.
 Lint/MissingSuper:
   Exclude:
-    - 'lib/rspec-puppet/errors.rb'
-    - 'lib/rspec-puppet/sensitive.rb'
+    - 'lib/puppetlabs/rspec-puppet/errors.rb'
+    - 'lib/puppetlabs/rspec-puppet/sensitive.rb'
 
 # Offense count: 1
 Lint/RescueException:
   Exclude:
-    - 'lib/rspec-puppet/matchers/run.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/run.rb'
 
 # Offense count: 2
 Lint/ShadowingOuterLocalVariable:
   Exclude:
-    - 'lib/rspec-puppet/example.rb'
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/example.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 5
 # Configuration parameters: AllowComments, AllowNil.
 Lint/SuppressedException:
   Exclude:
-    - 'lib/rspec-puppet.rb'
+    - 'lib/puppetlabs/rspec-puppet.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
 Lint/UnusedMethodArgument:
   Exclude:
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 5
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Lint/UselessAssignment:
   Exclude:
-    - 'lib/rspec-puppet/example/function_example_group.rb'
-    - 'lib/rspec-puppet/matchers/create_generic.rb'
-    - 'lib/rspec-puppet/monkey_patches.rb'
+    - 'lib/puppetlabs/rspec-puppet/example/function_example_group.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/create_generic.rb'
+    - 'lib/puppetlabs/rspec-puppet/monkey_patches.rb'
 
 # Offense count: 27
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
@@ -113,13 +113,13 @@ Metrics/PerceivedComplexity:
 # Offense count: 2
 Naming/AccessorMethodName:
   Exclude:
-    - 'lib/rspec-puppet/adapters.rb'
-    - 'lib/rspec-puppet/setup.rb'
+    - 'lib/puppetlabs/rspec-puppet/adapters.rb'
+    - 'lib/puppetlabs/rspec-puppet/setup.rb'
 
 # Offense count: 5
 Naming/ConstantName:
   Exclude:
-    - 'lib/rspec-puppet/monkey_patches/windows/taskschedulerconstants.rb'
+    - 'lib/puppetlabs/rspec-puppet/monkey_patches/windows/taskschedulerconstants.rb'
 
 # Offense count: 2
 # Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.
@@ -127,7 +127,7 @@ Naming/ConstantName:
 # AllowedAcronyms: CLI, DSL, ACL, API, ASCII, CPU, CSS, DNS, EOF, GUID, HTML, HTTP, HTTPS, ID, IP, JSON, LHS, QPS, RAM, RHS, RPC, SLA, SMTP, SQL, SSH, TCP, TLS, TTL, UDP, UI, UID, UUID, URI, URL, UTF8, VM, XML, XMPP, XSRF, XSS
 Naming/FileName:
   Exclude:
-    - 'lib/rspec-puppet.rb'
+    - 'lib/puppetlabs/rspec-puppet.rb'
     - 'spec/functions/camelCaseFunction_spec.rb'
 
 # Offense count: 4
@@ -135,7 +135,7 @@ Naming/FileName:
 # ForbiddenDelimiters: (?i-mx:(^|\s)(EO[A-Z]{1}|END)(\s|$))
 Naming/HeredocDelimiterNaming:
   Exclude:
-    - 'lib/rspec-puppet/setup.rb'
+    - 'lib/puppetlabs/rspec-puppet/setup.rb'
     - 'spec/hosts/array_spec.rb'
     - 'spec/unit/matchers/compile_spec.rb'
 
@@ -145,7 +145,7 @@ Naming/HeredocDelimiterNaming:
 # SupportedStylesForLeadingUnderscores: disallowed, required, optional
 Naming/MemoizedInstanceVariableName:
   Exclude:
-    - 'lib/rspec-puppet/example/type_example_group.rb'
+    - 'lib/puppetlabs/rspec-puppet/example/type_example_group.rb'
 
 # Offense count: 3
 # Configuration parameters: NamePrefix, ForbiddenPrefixes, AllowedMethods, MethodDefinitionMacros.
@@ -156,22 +156,22 @@ Naming/MemoizedInstanceVariableName:
 Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
-    - 'lib/rspec-puppet/matchers/count_generic.rb'
-    - 'lib/rspec-puppet/setup.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/count_generic.rb'
+    - 'lib/puppetlabs/rspec-puppet/setup.rb'
 
 # Offense count: 3
 # Configuration parameters: MinSize.
 Performance/CollectionLiteralInLoop:
   Exclude:
-    - 'lib/rspec-puppet/matchers/compile.rb'
-    - 'lib/rspec-puppet/matchers/count_generic.rb'
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/compile.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/count_generic.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Performance/ConstantRegexp:
   Exclude:
-    - 'lib/rspec-puppet/monkey_patches.rb'
+    - 'lib/puppetlabs/rspec-puppet/monkey_patches.rb'
 
 # Offense count: 7
 RSpec/Be:
@@ -331,12 +331,12 @@ RSpec/VerifiedDoubles:
 # Configuration parameters: AllowOnConstant, AllowOnSelfClass.
 Style/CaseEquality:
   Exclude:
-    - 'lib/rspec-puppet/matchers/run.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/run.rb'
 
 # Offense count: 2
 Style/ClassVars:
   Exclude:
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -355,52 +355,52 @@ Style/Documentation:
 # SupportedStyles: format, sprintf, percent
 Style/FormatString:
   Exclude:
-    - 'lib/rspec-puppet/coverage.rb'
+    - 'lib/puppetlabs/rspec-puppet/coverage.rb'
 
 # Offense count: 14
 # This cop supports safe autocorrection (--autocorrect).
 Style/IfUnlessModifier:
   Exclude:
-    - 'lib/rspec-puppet/adapters.rb'
-    - 'lib/rspec-puppet/coverage.rb'
-    - 'lib/rspec-puppet/example/function_example_group.rb'
-    - 'lib/rspec-puppet/matchers/create_generic.rb'
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/adapters.rb'
+    - 'lib/puppetlabs/rspec-puppet/coverage.rb'
+    - 'lib/puppetlabs/rspec-puppet/example/function_example_group.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/create_generic.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 5
 Style/MissingRespondToMissing:
   Exclude:
-    - 'lib/rspec-puppet/coverage.rb'
-    - 'lib/rspec-puppet/matchers/create_generic.rb'
-    - 'lib/rspec-puppet/matchers/dynamic_matchers.rb'
+    - 'lib/puppetlabs/rspec-puppet/coverage.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/create_generic.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/dynamic_matchers.rb'
 
 # Offense count: 3
 Style/MultilineBlockChain:
   Exclude:
-    - 'lib/rspec-puppet/matchers/create_generic.rb'
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/create_generic.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 4
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
 Style/OptionalBooleanParameter:
   Exclude:
-    - 'lib/rspec-puppet/setup.rb'
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/setup.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/SlicingWithRange:
   Exclude:
-    - 'lib/rspec-puppet/monkey_patches.rb'
+    - 'lib/puppetlabs/rspec-puppet/monkey_patches.rb'
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Mode.
 Style/StringConcatenation:
   Exclude:
-    - 'lib/rspec-puppet/matchers/compile.rb'
-    - 'lib/rspec-puppet/support.rb'
+    - 'lib/puppetlabs/rspec-puppet/matchers/compile.rb'
+    - 'lib/puppetlabs/rspec-puppet/support.rb'
 
 # Offense count: 25
 # This cop supports safe autocorrection (--autocorrect).

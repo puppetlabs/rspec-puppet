@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Puppetlabs
   module RSpecPuppet
     # A raw string object, that is used by helpers to allow consumers to return non-quoted strings
