@@ -12,10 +12,10 @@ jobs:
       fail-fast: false
       matrix:
         ruby_version:
-          - "2.7"
+          - "2.7.0"
           - "3.2"
         include:
-          - ruby-version: '2.7'
+          - ruby-version: '2.7.0'
             puppet_gem_version: '~> 7.0'
           - ruby_version: '3.2'
             puppet_gem_version: '~> 8.0'
