@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rspec-puppet/version'
 
 Gem::Specification.new do |s|
-  s.name = 'puppetlabs-rspec-puppet'
+  s.name = 'rspec-puppet'
   s.version = RSpecPuppet::VERSION
   s.homepage = 'https://github.com/puppetlabs/rspec-puppet/'
   s.summary = 'RSpec tests for your Puppet manifests'
