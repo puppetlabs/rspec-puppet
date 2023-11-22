@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [v5.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v5.0.0) - 2023-10-18
+## [v4.0.1](https://github.com/puppetlabs/rspec-puppet/tree/v4.0.1) - 2023-11-22
 
-[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.0...v5.0.0)
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.0...v4.0.1)
 
-### Changed
-- (CAT-1235) - Rename to puppetlabs-rspec-puppet [#76](https://github.com/puppetlabs/rspec-puppet/pull/76) ([jordanbreen28](https://github.com/jordanbreen28))
+### Fixed
+
+- (maint) - Add original owners [#90](https://github.com/puppetlabs/rspec-puppet/pull/90) ([jordanbreen28](https://github.com/jordanbreen28))
 
 ## [v4.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v4.0.0) - 2023-10-09
 
