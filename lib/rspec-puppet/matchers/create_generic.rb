@@ -303,7 +303,7 @@ module RSpec::Puppet
 
         # Add auto* (autorequire etc) if any
         if %i[before notify require subscribe].include?(type)
-          func = "eachauto#{type}".to_sym
+          func = :"eachauto#{type}"
           if resource.resource_type.respond_to?(func)
             resource.resource_type.send(func) do |t, b|
               Array(resource.to_ral.instance_eval(&b)).each do |dep|

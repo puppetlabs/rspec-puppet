@@ -100,7 +100,7 @@ module RSpec::Puppet
         return func if func.func
 
         if Puppet::Parser::Functions.function(function_name)
-          V3FunctionWrapper.new(function_name, scope.method("function_#{function_name}".intern))
+          V3FunctionWrapper.new(function_name, scope.method(:"function_#{function_name}"))
         end
       end
     end
