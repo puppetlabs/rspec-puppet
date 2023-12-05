@@ -25,3 +25,5 @@ Style/ClassAndModuleChildren:
 # As the new cops are already present, e.g., Rspec/SpecFilePathPathFormat, then disabling this in preparation
 RSpec/FilePath:
   Enabled: false
+Gemspec/RequireMFA:
+  Enabled: false
