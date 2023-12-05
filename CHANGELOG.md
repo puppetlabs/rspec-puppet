@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v4.0.2](https://github.com/puppetlabs/rspec-puppet/tree/v4.0.2) - 2023-12-05
+
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.1...v4.0.2)
+
+### Fixed
+
+- Revert "(maint) - fix rubocop" - Leading argument with delegation syntax not supported with ruby 2.7.0 [#94](https://github.com/puppetlabs/rspec-puppet/pull/94) ([jordanbreen28](https://github.com/jordanbreen28))
+- Revert "(CAT-1235) - Rename to puppetlabs-rspec-puppet" [#92](https://github.com/puppetlabs/rspec-puppet/pull/92) ([jordanbreen28](https://github.com/jordanbreen28))
+
 ## [v4.0.1](https://github.com/puppetlabs/rspec-puppet/tree/v4.0.1) - 2023-11-22
 
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.0...v4.0.1)
