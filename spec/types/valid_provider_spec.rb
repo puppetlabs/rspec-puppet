@@ -19,7 +19,7 @@ describe 'fake' do
         [v[:baddies], v[:baddies].first].each do |baddies|
           it "fails for #{baddies.size} baddies" do
             expect do
-              expect(subject).to be_valid_type.send("with_#{k}".to_sym, baddies)
+              expect(subject).to be_valid_type.send(:"with_#{k}", baddies)
             end.to raise_error(
               RSpec::Expectations::ExpectationNotMetError,
               /Invalid #{k}: #{Array(baddies).join(',')}/
@@ -29,7 +29,7 @@ describe 'fake' do
 
         [v[:goodies], v[:goodies].first].each do |goodies|
           it "passes with #{goodies.size} goodies" do
-            expect(subject).to be_valid_type.send("with_#{k}".to_sym, goodies)
+            expect(subject).to be_valid_type.send(:"with_#{k}", goodies)
           end
         end
       end
