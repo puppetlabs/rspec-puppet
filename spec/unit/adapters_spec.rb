@@ -102,7 +102,7 @@ describe RSpec::Puppet::Adapters::Base do
   describe '#setup_puppet' do
     describe 'when managing the facter_implementation' do
       after do
-        Object.send(:remove_const, :FacterImpl) if defined? FacterImpl
+        Object.send(:remove_const, :FacterImpl) if defined? FacterImpl # rubocop:disable RSpec/RemoveConst
       end
 
       it 'uses facter as default implementation' do
