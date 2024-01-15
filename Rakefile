@@ -94,3 +94,11 @@ end
 RuboCop::RakeTask.new(:rubocop) do |task|
   task.options = %w[-D -S -E]
 end
+
+namespace :spec do
+  desc 'Run RSpec code examples with coverage collection'
+  task :coverage do
+      ENV['COVERAGE'] = 'yes'
+      Rake::Task['test'].invoke
+  end
+end
