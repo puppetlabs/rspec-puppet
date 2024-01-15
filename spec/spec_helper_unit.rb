@@ -1,14 +1,29 @@
 # frozen_string_literal: true
 
 if ENV['COVERAGE']
-  require 'coveralls'
-  require 'simplecov'
+  begin
+    require 'simplecov'
+    require 'simplecov-console'
 
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter if ENV['COVERAGE'] == 'yes'
+    SimpleCov.formatters = [
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::Console
+    ]
 
-  SimpleCov.start do
-    add_filter %r{^/spec/}
-    add_filter %r{^/vendor/}
+    if ENV['CI'] == 'true'
+      require 'codecov'
+      SimpleCov.formatters << SimpleCov::Formatter::Codecov
+    end
+
+    SimpleCov.start do
+      add_filter %r{^/spec/}
+      add_filter %r{^/vendor/}
+
+      add_filter '/docs'
+      add_filter 'lib/rspec-puppet/version.rb'
+    end
+  rescue LoadError
+    raise 'Add the simplecov, simplecov-console, codecov gems to Gemfile to enable this task'
   end
 end
 
