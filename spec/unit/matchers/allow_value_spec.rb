@@ -90,7 +90,7 @@ describe RSpec::Puppet::TypeAliasMatchers::AllowValue do
       before { subject.matches?(catalogue) }
 
       it {
-        expect(subject.failure_message).to eq('expected that the type alias would match values "circle", "square", "triangle" but it raised the errors expected a Shape value, got circle, expected a Shape value, got triangle')
+        expect(subject.failure_message).to eq('expected that the type alias would match values "circle", "square", "triangle" but it raised the errors expected a Shape value, got circle, expected a Shape value, got triangle') # rubocop:disable Layout/LineLength
       }
     end
 
