@@ -10,11 +10,6 @@ if ENV['COVERAGE']
       SimpleCov::Formatter::Console
     ]
 
-    if ENV['CI'] == 'true'
-      require 'codecov'
-      SimpleCov.formatters << SimpleCov::Formatter::Codecov
-    end
-
     SimpleCov.start do
       add_filter %r{^/spec/}
       add_filter %r{^/vendor/}
@@ -23,7 +18,7 @@ if ENV['COVERAGE']
       add_filter 'lib/rspec-puppet/version.rb'
     end
   rescue LoadError
-    raise 'Add the simplecov, simplecov-console, codecov gems to Gemfile to enable this task'
+    raise 'Add the simplecov & simplecov-console gems to Gemfile to enable this task'
   end
 end
 

@@ -31,7 +31,6 @@ group :test do
 
   gem 'rake', require: false
 
-  gem 'codecov', require: false
   gem 'rspec', '~> 3.0', require: false
   gem 'rubocop', '~> 1.50.0', require: false
   gem 'rubocop-performance', '~> 1.16', require: false
