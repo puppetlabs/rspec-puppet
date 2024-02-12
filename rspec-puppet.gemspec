@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.executables = ['rspec-puppet-init']
 
-  s.files = Dir['CHANGELOG.md', 'LICENSE.md', 'README.md', 'lib/**/*', 'bin/**/*']
+  s.files = Dir['CHANGELOG.md', 'LICENSE', 'README.md', 'lib/**/*', 'bin/**/*']
 
   s.add_dependency 'rspec', '~> 3.0'
 
