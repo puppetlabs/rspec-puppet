@@ -108,5 +108,34 @@ describe RSpec::Puppet::ManifestMatchers::ParameterMatcher do
         expect(subject.matches?(foo_parameter: nil)).to be(false)
       end
     end
+
+    context 'with sensitive("foo") expected' do
+      subject do
+        described_class.new(:foo_parameter, RSpec::Puppet::Sensitive.new('foo'), :should)
+      end
+
+      it 'matches sensitive("foo")' do
+        expect(subject.matches?(foo_parameter: RSpec::Puppet::Sensitive.new('foo'))).to be(true)
+        expect(subject.errors.size).to eq(0)
+      end
+
+      it 'does not match sensitive("bar")' do
+        expect(subject.matches?(foo_parameter: RSpec::Puppet::Sensitive.new('bar'))).to be(false)
+        expect(subject.errors.size).to eq(1)
+        expect(subject.errors[0].message).to eq('foo_parameter set to Sensitive("foo") but it is set to Sensitive("bar")')
+      end
+
+      it 'does not matches "foo"' do
+        expect(subject.matches?(foo_parameter: 'foo')).to be(false)
+        expect(subject.errors.size).to eq(1)
+        expect(subject.errors[0].message).to eq('foo_parameter set to Sensitive("foo") but it is set to "foo"')
+      end
+
+      it 'does not matches "Sensitive [value redacted]"' do
+        expect(subject.matches?(foo_parameter: 'Sensitive [value redacted]')).to be(false)
+        expect(subject.errors.size).to eq(1)
+        expect(subject.errors[0].message).to eq('foo_parameter set to Sensitive("foo") but it is set to "Sensitive [value redacted]"')
+      end
+    end
   end
 end

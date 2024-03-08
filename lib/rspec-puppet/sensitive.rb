@@ -24,6 +24,11 @@ module RSpec::Puppet
       "Sensitive(#{@value.inspect})"
     end
 
+    # @return the unwrapped value (needed to show diff)
+    def to_s
+      inspect
+    end
+
     # Check for equality with another value.
     # If compared to Puppet Sensitive type, it compares the wrapped values.
 
