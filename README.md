@@ -888,50 +888,46 @@ end
 
 ## Hiera integration
 
+At some point, you might want to make use of Hiera to bring in custom parameters for your class tests. In this section, we will
+provide you with basic guidance to setup Hiera implementation within rspec testing. For more information on Hiera, you should
+check our official [documentation](https://www.puppet.com/docs/puppet/8/hiera.html).
+
 ### Configuration
 
-Set the hiera config symbol properly in your spec files:
+The first step is to create the general hiera configuration file. Since we want this to be exclusive for testing, we recommend creating
+it inside your spec folder. Something along the lines of `spec/fixtures/hiera/hiera.yaml`. It should look something like this:
+
+```yaml
+---
+version: 5
+defaults:               # Used for any hierarchy level that omits these keys.
+  datadir: data         # This path is relative to hiera.yaml's directory.
+  data_hash: yaml_data  # Use the built-in YAML backend.
+
+hierarchy:
+  - name: 'rspec'
+    path: 'rspec-data.yaml'
+```
+
+It is often recommended to use dummy data during testing to avoid real values from being entangled. In order to create
+these values, we will need a new file containing this data exclusively, normally existing within a subfolder called `data`, ending up with
+`spec/fixtures/hiera/data/rspec-data.yaml`. Here is an example of its contents:
+
+```yaml
+ntpserver: 'ntp1.domain.com'
+user: 'guest'
+password: 'unsafepassword1'
+```
+
+Finally, we make the target class spec file load the Hiera config, at which point we will be able to freely access it:
 
 ```ruby
 let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
-hiera = Hiera.new(:config => 'spec/fixtures/hiera/hiera.yaml')
 ```
+#### Enabling lookup()
 
-Create your spec hiera files
-
-spec/fixtures/hiera/hiera.yaml
-```ruby
----
-:backends:
-  - yaml
-:hierarchy:
-  - test
-:yaml:
-  :datadir: 'spec/fixtures/hiera'
-```
-
-spec/fixtures/hiera/test.yaml
-```ruby
----
-ntpserver: ['ntp1.domain.com','ntpXX.domain.com']
-user:
-  oneuser:
-    shell: '/bin/bash'
-  twouser:
-    shell: '/sbin/nologin'
-```
-
-### Use hiera in your tests
-
-```ruby
-  ntpserver = hiera.lookup('ntpserver', nil, nil)
-  let(:params) { 'ntpserver' => ntpserver }
-```
-
-### Enabling hiera lookups
-If you just want to fetch values from hiera (e.g. because
-you're testing code that uses explicit hiera lookups) just specify
-the path to the hiera config in your `spec_helper.rb`
+There will also be situations in which you will simply want to fetch values from hiera across one or many testing files(e.g. because you're testing code 
+that uses explicit hiera lookups). In this case, just specify the path to the hiera config in your `spec_helper.rb`:
 
 ```ruby
 RSpec.configure do |c|
@@ -939,15 +935,10 @@ RSpec.configure do |c|
 end
 ```
 
-spec/fixtures/hiera/hiera.yaml
-```yaml
----
-:backends:
-  - yaml
-:yaml:
-  :datadir: spec/fixtures/hieradata
-:hierarchy:
-  - common
+Once that is set, you should be able to start using the lookup function
+
+```ruby
+  ntpserver = lookup('ntpserver')
 ```
 
 **Please note:** In-module hiera data depends on having a correct metadata.json file. It is
