@@ -890,12 +890,12 @@ end
 
 At some point, you might want to make use of Hiera to bring in custom parameters for your class tests. In this section, we will
 provide you with basic guidance to setup Hiera implementation within rspec testing. For more information on Hiera, you should
-check our official [documentation](https://www.puppet.com/docs/puppet/8/hiera.html).
+check our official [documentation](https://www.puppet.com/docs/puppet/latest/hiera.html).
 
 ### Configuration
 
 The first step is to create the general hiera configuration file. Since we want this to be exclusive for testing, we recommend creating
-it inside your spec folder. Something along the lines of `spec/fixtures/hiera/hiera.yaml`. It should look something like this:
+it inside your spec folder. Something along the lines of `spec/fixtures/hiera/hiera-rspec.yaml`. It should look something like this:
 
 ```yaml
 ---
@@ -914,31 +914,66 @@ these values, we will need a new file containing this data exclusively, normally
 `spec/fixtures/hiera/data/rspec-data.yaml`. Here is an example of its contents:
 
 ```yaml
-ntpserver: 'ntp1.domain.com'
-user: 'guest'
-password: 'unsafepassword1'
+---
+# We will be using this data in later examples
+message: 'Hello world!'
+dummy:message2: 'foobar' # autoloaded parameter
 ```
 
 Finally, we make the target class spec file load the Hiera config, at which point we will be able to freely access it:
 
 ```ruby
-let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
+let(:hiera_config) { 'spec/fixtures/hiera/hiera-rspec.yaml' }
 ```
-#### Enabling lookup()
 
-There will also be situations in which you will simply want to fetch values from hiera across one or many testing files(e.g. because you're testing code 
-that uses explicit hiera lookups). In this case, just specify the path to the hiera config in your `spec_helper.rb`:
+Or alternatively, you could load the hiera configuration in the spec_helper to ensure it is available through all test files:
 
 ```ruby
 RSpec.configure do |c|
-  c.hiera_config = 'spec/fixtures/hiera/hiera.yaml'
+  c.hiera_config = 'spec/fixtures/hiera/hiera-rspec.yaml'
 end
 ```
 
-Once that is set, you should be able to start using the lookup function
+#### Test usage examples
+
+Unlike with Hiera 3, Hiera 5 comes packaged with our Puppet agent and runs during Puppet runtime. This means that it is not really possible to
+call the lookup function in the same way it previously worked. However, you can still test its functionality via dummy class instantiation:
+
+The following test creates a dummny class that uses the lookup function within it. This should allow you to confirm that the lookup() function
+works correctly (remember that this test uses your custom hiera parameters, and not your real ones).
 
 ```ruby
-  ntpserver = lookup('ntpserver')
+context 'dummy hiera test is implemented' do
+      let(:pre_condition) do
+        "class dummy($message) { }
+         class { 'dummy': message => lookup('message') }"
+      end
+      let(:hiera_config) { 'spec/fixtures/hiera/hiera-rspec.yaml' } # Only needed if the config has not been established in spec_helper
+
+      it { is_expected.to compile }
+
+      it 'loads ntpserver from Hiera' do
+        is_expected.to contain_class('dummy').with_message('Hello world!')
+      end
+    end
+```
+
+The next test ensures that autoloaded parameters work correctly within your classes:
+
+```ruby
+    context 'dummy hiera test is implemented a second time' do
+      let(:pre_condition) do
+        "class dummy($message2) { }
+        include dummy"
+      end
+      let(:hiera_config) { 'spec/fixtures/hiera/hiera-rspec.yaml' } # Only needed if the config has not been established in spec_helper
+
+      it { is_expected.to compile }
+
+      it 'loads ntpserver from Hiera' do
+        is_expected.to contain_class('dummy').with_message2('foobar')
+      end
+    end
 ```
 
 **Please note:** In-module hiera data depends on having a correct metadata.json file. It is
