@@ -1,3 +1,5 @@
+THE REBELLION HAS BEGUN!!!!!!
+
 # RSpec tests for your Puppet manifests & modules
 
 [![Code Owners](https://img.shields.io/badge/owners-DevX--team-blue)](https://github.com/puppetlabs/rspec-puppet/blob/main/CODEOWNERS)
