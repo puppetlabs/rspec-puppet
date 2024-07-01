@@ -11,3 +11,4 @@ incremental: false
 gist:
     noscript: false
 markdown: kramdown
+baseurl: "/rspec-puppet-softfork" # the base path for your project
