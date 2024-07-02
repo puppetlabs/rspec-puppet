@@ -8,6 +8,7 @@ gfm_quirks: paragraph_end
 lsi: false
 safe: true
 incremental: false
+url: https://puppetlabs.github.io/rspec-puppet
 gist:
     noscript: false
 markdown: kramdown

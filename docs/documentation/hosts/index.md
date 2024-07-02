@@ -5,7 +5,7 @@ icon: fa fa-server
 breadcrumbs:
     -
         name: Documentation
-        path: /documentation/
+        path: /rspec-puppet/documentation/
 ---
 
 ## Basic Test Structure

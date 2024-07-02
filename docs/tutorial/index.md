@@ -56,7 +56,7 @@ _This is not intended to be an RSpec tutorial, just an explanation of how to
 use the extended functionality that rspec-puppet provides.  If you are not
 familiar with the basics of RSpec, I highly recommend you take some time before
 continuing to read through the [RSpec 
-documentation](https://www.relishapp.com/rspec)._
+documentation](https://rspec.info/documentation/)._
 
 Lets say you're writing tests for a `logrotate::rule` type that does two
 things:
