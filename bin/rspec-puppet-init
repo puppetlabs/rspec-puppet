@@ -7,7 +7,7 @@ require 'rspec-puppet'
 require 'optparse'
 
 options = {
-  module_name: nil
+  module_name: nil,
 }
 
 OptionParser.new do |opts|

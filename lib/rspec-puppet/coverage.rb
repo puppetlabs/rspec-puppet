@@ -259,7 +259,7 @@ module RSpec::Puppet
       text = [
         "Total resources:   #{report[:total]}",
         "Touched resources: #{report[:touched]}",
-        "Resource coverage: #{report[:coverage]}%"
+        "Resource coverage: #{report[:coverage]}%",
       ]
 
       if (report[:untouched]).positive?
@@ -341,7 +341,7 @@ module RSpec::Puppet
 
       def to_hash
         {
-          touched: touched?
+          touched: touched?,
         }
       end
 

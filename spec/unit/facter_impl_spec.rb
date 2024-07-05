@@ -13,7 +13,7 @@ describe RSpec::Puppet::FacterTestImpl do
       'int_fact' => 3,
       'true_fact' => true,
       'false_fact' => false,
-      'os' => { 'name' => 'my_os', 'release' => { 'major' => '42' } }
+      'os' => { 'name' => 'my_os', 'release' => { 'major' => '42' } },
     }
   end
 

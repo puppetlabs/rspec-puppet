@@ -19,7 +19,7 @@ task :release_test do
     'garethr/garethr-docker',
     'sensu/sensu-puppet',
     'jenkinsci/puppet-jenkins',
-    'rnelson0/puppet-local_user'
+    'rnelson0/puppet-local_user',
   ]
 
   Bundler.with_clean_env do

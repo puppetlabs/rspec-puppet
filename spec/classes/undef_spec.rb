@@ -20,7 +20,7 @@ describe 'undef_test' do
 
         expect(subject).to contain_class('undef_test').only_with(
           required_attribute: 'some_string',
-          defaults_to_undef: nil
+          defaults_to_undef: nil,
         )
       end
     end
@@ -41,7 +41,7 @@ describe 'undef_test' do
 
         expect(subject).to contain_class('undef_test').only_with(
           required_attribute: 'some_string',
-          defaults_to_undef: nil
+          defaults_to_undef: nil,
         )
       end
     end
@@ -64,7 +64,7 @@ describe 'undef_test' do
 
         expect(subject).to contain_class('undef_test').only_with(
           required_attribute: nil,
-          defaults_to_undef: nil
+          defaults_to_undef: nil,
         )
       end
     end
@@ -85,7 +85,7 @@ describe 'undef_test' do
 
         expect(subject).to contain_class('undef_test').only_with(
           required_attribute: nil,
-          defaults_to_undef: nil
+          defaults_to_undef: nil,
         )
       end
     end

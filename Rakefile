@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rake'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
@@ -5,25 +7,25 @@ require 'bundler/gem_tasks'
 require 'fileutils'
 require 'puppet'
 
-task :default => :test
-task :spec => :test
+task default: :test
+task spec: :test
 
 require 'rspec-puppet/tasks/release_test'
 
 fixtures_dir = File.expand_path(File.join(__FILE__, '..', 'spec', 'fixtures', 'modules'))
 fixtures = {
   'augeas_core' => {
-    :url         => 'https://github.com/puppetlabs/puppetlabs-augeas_core',
-    :requirement => Gem::Requirement.new('>= 6.0.0'),
+    url: 'https://github.com/puppetlabs/puppetlabs-augeas_core',
+    requirement: Gem::Requirement.new('>= 6.0.0'),
   },
-  'stdlib'      => {
-    :url         => 'https://github.com/puppetlabs/puppetlabs-stdlib',
-    :requirement => Gem::Requirement.new('>= 0'),
-    :ref         => '4.2.0',
+  'stdlib' => {
+    url: 'https://github.com/puppetlabs/puppetlabs-stdlib',
+    requirement: Gem::Requirement.new('>= 0'),
+    ref: '4.2.0',
   },
-  'registry'    => {
-    :url         => 'https://github.com/puppetlabs/puppetlabs-registry',
-    :requirement => Gem::Requirement.new('>= 0'),
+  'registry' => {
+    url: 'https://github.com/puppetlabs/puppetlabs-registry',
+    requirement: Gem::Requirement.new('>= 0'),
   },
 }
 
@@ -49,13 +51,13 @@ namespace :test do
         next unless fixture[:requirement].satisfied_by?(puppet_version)
 
         system('git', 'clone', fixture[:url], name)
-        fail unless $?.success?
+        raise unless $?.success?
 
-        if fixture.key?(:ref)
-          Dir.chdir(name) do
-            system('git', 'checkout', fixture[:ref])
-            fail unless $?.success?
-          end
+        next unless fixture.key?(:ref)
+
+        Dir.chdir(name) do
+          system('git', 'checkout', fixture[:ref])
+          raise unless $?.success?
         end
       end
     end
@@ -65,30 +67,27 @@ namespace :test do
     Dir.chdir(fixtures_dir) do
       fixtures.each do |name, _|
         next unless File.directory?(name)
+
         FileUtils.rm_r(name)
       end
     end
   end
 
   task :unit do
-    begin
-      Rake::Task['test:setup'].invoke
-      ENV['COVERAGE'] = 'local'
-      Rake::Task['test:spec_unit'].invoke
-    ensure
-      ENV.delete('COVERAGE')
-      Rake::Task['test:teardown'].invoke
-    end
+    Rake::Task['test:setup'].invoke
+    ENV['COVERAGE'] = 'local'
+    Rake::Task['test:spec_unit'].invoke
+  ensure
+    ENV.delete('COVERAGE')
+    Rake::Task['test:teardown'].invoke
   end
 end
 
 task :test do
-  begin
-    Rake::Task['test:setup'].invoke
-    Rake::Task['test:spec'].invoke
-  ensure
-    Rake::Task['test:teardown'].invoke
-  end
+  Rake::Task['test:setup'].invoke
+  Rake::Task['test:spec'].invoke
+ensure
+  Rake::Task['test:teardown'].invoke
 end
 
 RuboCop::RakeTask.new(:rubocop) do |task|
@@ -98,7 +97,7 @@ end
 namespace :spec do
   desc 'Run RSpec code examples with coverage collection'
   task :coverage do
-      ENV['COVERAGE'] = 'yes'
-      Rake::Task['test'].invoke
+    ENV['COVERAGE'] = 'yes'
+    Rake::Task['test'].invoke
   end
 end

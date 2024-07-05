@@ -59,7 +59,7 @@ module RSpec::Puppet
         settings_hash = default_hash.merge(Hash[*settings])
         if Gem.win_platform?
           settings_hash.each_with_object(settings_hash) do |(k, v), h|
-            h[k] = v == '/dev/null' ? 'c:/nul/' : v
+            h[k] = (v == '/dev/null') ? 'c:/nul/' : v
           end
         end
 
@@ -101,9 +101,9 @@ module RSpec::Puppet
           {
             environments: loader,
             current_environment: env,
-            loaders: Puppet::Pops::Loaders.new(env)
+            loaders: Puppet::Pops::Loaders.new(env),
           },
-          'Setup rspec-puppet environments'
+          'Setup rspec-puppet environments',
         )
       end
 
@@ -148,7 +148,7 @@ module RSpec::Puppet
           %i[environmentpath environmentpath],
           %i[hiera_config hiera_config],
           %i[strict_variables strict_variables],
-          %i[vendormoduledir vendormoduledir]
+          %i[vendormoduledir vendormoduledir],
         ]
       end
 
@@ -187,7 +187,7 @@ module RSpec::Puppet
 
     def self.get
       [
-        ['7.11', Base]
+        ['7.11', Base],
       ].each do |(version, klass)|
         return klass.new if Puppet::Util::Package.versioncmp(Puppet.version, version) >= 0
       end

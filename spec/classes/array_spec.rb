@@ -10,7 +10,7 @@ describe 'structured_data' do
 
     it {
       expect(subject).to contain_structured_data__def('thing').with(
-        { 'data' => %w[foo bar baz quux] }
+        { 'data' => %w[foo bar baz quux] },
       )
     }
   end
@@ -22,7 +22,7 @@ describe 'structured_data' do
 
     it {
       expect(subject).to contain_structured_data__def('thing').with(
-        { 'data' => ['first', 1, 'second', 2] }
+        { 'data' => ['first', 1, 'second', 2] },
       )
     }
   end
@@ -34,7 +34,7 @@ describe 'structured_data' do
         'second',
         %w[third fourth],
         5,
-        6
+        6,
       ] }
     end
 
@@ -45,8 +45,8 @@ describe 'structured_data' do
           'second',
           %w[third fourth],
           5,
-          6
-        ] }
+          6,
+        ] },
       )
     }
   end

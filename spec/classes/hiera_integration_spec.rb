@@ -42,7 +42,7 @@ describe 'hiera_test' do
     context 'with absolute fixture hiera config path' do
       before do
         RSpec.configuration.fixture_hiera_configs = {
-          'hiera_test' => File.join(__FILE__, '../../fixtures/modules/hiera_test/spec/module_hiera.yaml')
+          'hiera_test' => File.join(__FILE__, '../../fixtures/modules/hiera_test/spec/module_hiera.yaml'),
         }
       end
 
@@ -84,7 +84,7 @@ describe 'hiera_test' do
     context 'with absolute fixture hiera config path' do
       before do
         RSpec.configuration.fixture_hiera_configs = {
-          'hiera_test' => File.join(__FILE__, '../../fixtures/modules/hiera_test/spec/module_hiera.yaml')
+          'hiera_test' => File.join(__FILE__, '../../fixtures/modules/hiera_test/spec/module_hiera.yaml'),
         }
       end
 

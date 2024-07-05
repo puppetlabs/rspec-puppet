@@ -8,8 +8,8 @@ describe 'type_mismatch' do
   it do
     expect(subject).not_to contain_type_mismatch__hash('bug').with_hash(
       'foo' => {
-        'bar' => {}
-      }
+        'bar' => {},
+      },
     )
   end
 
@@ -17,8 +17,8 @@ describe 'type_mismatch' do
     expect do
       expect(subject).not_to contain_type_mismatch__hash('bug').with_hash(
         'foo' => {
-          'bar' => {}
-        }
+          'bar' => {},
+        },
       )
     end.not_to raise_error
   end

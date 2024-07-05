@@ -18,7 +18,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
     it {
       expect(subject).to have_attributes(
-        description: 'compile into a catalogue without dependency cycles'
+        description: 'compile into a catalogue without dependency cycles',
       )
     }
 
@@ -29,7 +29,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
       it {
         expect(subject).to have_attributes(
-          description: 'fail to compile and raise the error "example"'
+          description: 'fail to compile and raise the error "example"',
         )
       }
 
@@ -38,7 +38,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
         it {
           expect(subject).to have_attributes(
-            failure_message: a_string_starting_with('expected that the catalogue would fail to compile and raise the error "example"')
+            failure_message: a_string_starting_with('expected that the catalogue would fail to compile and raise the error "example"'),
           )
         }
       end
@@ -51,7 +51,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
       it {
         expect(subject).to have_attributes(
-          description: 'fail to compile and raise an error matching /example/'
+          description: 'fail to compile and raise an error matching /example/',
         )
       }
 
@@ -60,7 +60,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
         it {
           expect(subject).to have_attributes(
-            failure_message: a_string_starting_with('expected that the catalogue would fail to compile and raise an error matching /example/')
+            failure_message: a_string_starting_with('expected that the catalogue would fail to compile and raise an error matching /example/'),
           )
         }
       end
@@ -77,7 +77,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
       it {
         expect(subject).to have_attributes(
-          failure_message: a_string_matching(%r{\Aerror during compilation: Could not (retrieve dependency|find resource) 'File\[/tmp/missing\]'})
+          failure_message: a_string_matching(%r{\Aerror during compilation: Could not (retrieve dependency|find resource) 'File\[/tmp/missing\]'}),
         )
       }
     end
@@ -93,7 +93,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
       it {
         expect(subject).to have_attributes(
-          failure_message: a_string_starting_with('error during compilation: ')
+          failure_message: a_string_starting_with('error during compilation: '),
         )
       }
     end
@@ -114,7 +114,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
       it {
         expect(subject).to have_attributes(
-          failure_message: a_string_starting_with('dependency cycles found: ')
+          failure_message: a_string_starting_with('dependency cycles found: '),
         )
       }
     end
@@ -130,7 +130,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
         it {
           expect(subject).to have_attributes(
             description: 'fail to compile and raise the error "example"',
-            failure_message: a_string_starting_with('dependency cycles found: ')
+            failure_message: a_string_starting_with('dependency cycles found: '),
           )
         }
       end
@@ -147,7 +147,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
         it {
           expect(subject).to have_attributes(
             description: 'fail to compile and raise an error matching /example/',
-            failure_message: a_string_starting_with('dependency cycles found: ')
+            failure_message: a_string_starting_with('dependency cycles found: '),
           )
         }
       end
@@ -165,7 +165,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
       it {
         expect(subject).to have_attributes(
           description: 'compile into a catalogue without dependency cycles',
-          failure_message: a_string_starting_with('error during compilation: ')
+          failure_message: a_string_starting_with('error during compilation: '),
         )
       }
     end
@@ -181,7 +181,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
       it {
         expect(subject).to have_attributes(
-          description: "fail to compile and raise the error \"#{expected_error}\""
+          description: "fail to compile and raise the error \"#{expected_error}\"",
         )
       }
 
@@ -190,7 +190,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
         it {
           expect(subject).to have_attributes(
-            failure_message: a_string_starting_with('error during compilation: ')
+            failure_message: a_string_starting_with('error during compilation: '),
           )
         }
       end
@@ -203,7 +203,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
       it {
         expect(subject).to have_attributes(
-          description: 'fail to compile and raise an error matching /failure/'
+          description: 'fail to compile and raise an error matching /failure/',
         )
       }
 
@@ -212,7 +212,7 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
 
         it {
           expect(subject).to have_attributes(
-            failure_message: a_string_starting_with('error during compilation: ')
+            failure_message: a_string_starting_with('error during compilation: '),
           )
         }
       end

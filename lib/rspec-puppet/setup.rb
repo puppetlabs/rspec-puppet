@@ -55,7 +55,7 @@ module RSpec::Puppet
         File.join('spec', 'hosts'),
         File.join('spec', 'fixtures'),
         File.join('spec', 'fixtures', 'manifests'),
-        File.join('spec', 'fixtures', 'modules')
+        File.join('spec', 'fixtures', 'modules'),
       ].each { |dir| safe_mkdir(dir, verbose) }
 
       target = File.join('spec', 'fixtures', 'modules', module_name)
