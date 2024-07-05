@@ -53,13 +53,11 @@ module RSpec::Puppet
           [puppet_setting, get_setting(example_group, rspec_setting)]
         end.flatten
         default_hash = { confdir: '/dev/null', vardir: '/dev/null' }
-        if defined?(Puppet::Test::TestHelper) && Puppet::Test::TestHelper.respond_to?(:app_defaults_for_tests, true)
-          default_hash.merge!(Puppet::Test::TestHelper.send(:app_defaults_for_tests))
-        end
+        default_hash.merge!(Puppet::Test::TestHelper.send(:app_defaults_for_tests)) if defined?(Puppet::Test::TestHelper) && Puppet::Test::TestHelper.respond_to?(:app_defaults_for_tests, true)
         settings_hash = default_hash.merge(Hash[*settings])
         if Gem.win_platform?
           settings_hash.each_with_object(settings_hash) do |(k, v), h|
-            h[k] = v == '/dev/null' ? 'c:/nul/' : v
+            h[k] = (v == '/dev/null') ? 'c:/nul/' : v
           end
         end
 
@@ -101,9 +99,9 @@ module RSpec::Puppet
           {
             environments: loader,
             current_environment: env,
-            loaders: Puppet::Pops::Loaders.new(env)
+            loaders: Puppet::Pops::Loaders.new(env),
           },
-          'Setup rspec-puppet environments'
+          'Setup rspec-puppet environments',
         )
       end
 
@@ -119,9 +117,7 @@ module RSpec::Puppet
         node.environment = current_environment
         # Override $::environment to workaround PUP-5835, where Puppet otherwise
         # stores a symbol for the parameter
-        if node.parameters['environment'] != node.parameters['environment'].to_s
-          node.parameters['environment'] = current_environment.name.to_s
-        end
+        node.parameters['environment'] = current_environment.name.to_s if node.parameters['environment'] != node.parameters['environment'].to_s
 
         catalog = if exported
                     # Use the compiler directly to skip the filtering done by the indirector
@@ -148,7 +144,7 @@ module RSpec::Puppet
           %i[environmentpath environmentpath],
           %i[hiera_config hiera_config],
           %i[strict_variables strict_variables],
-          %i[vendormoduledir vendormoduledir]
+          %i[vendormoduledir vendormoduledir],
         ]
       end
 
@@ -187,7 +183,7 @@ module RSpec::Puppet
 
     def self.get
       [
-        ['7.11', Base]
+        ['7.11', Base],
       ].each do |(version, klass)|
         return klass.new if Puppet::Util::Package.versioncmp(Puppet.version, version) >= 0
       end

@@ -12,8 +12,8 @@ describe 'test::basic' do
       {
         fqdn: 'notthis.test.com',
         networking: {
-          primary: 'eth0'
-        }
+          primary: 'eth0',
+        },
       }
     end
 
@@ -32,7 +32,7 @@ describe 'test::basic' do
       let(:node) { 'mycertname.test.com' }
       let(:facts) do
         {
-          fqdn: 'myhostname.test.com'
+          fqdn: 'myhostname.test.com',
         }
       end
 

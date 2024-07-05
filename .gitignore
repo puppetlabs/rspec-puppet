@@ -3,6 +3,7 @@
 /Gemfile.local
 /.bundle/
 /vendor/
+/.vendor/
 .ruby-version
 /tmp/
 /spec/fixtures/modules/augeas_core/

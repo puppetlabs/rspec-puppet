@@ -10,7 +10,7 @@ describe 'structured_data' do
 
     it {
       expect(subject).to contain_structured_data__def('thing').with(
-        { 'data' => { 'foo' => 'bar', 'baz' => 'quux' } }
+        { 'data' => { 'foo' => 'bar', 'baz' => 'quux' } },
       )
     }
   end
@@ -22,7 +22,7 @@ describe 'structured_data' do
 
     it {
       expect(subject).to contain_structured_data__def('thing').with(
-        { 'data' => { 1 => 'uno', 2 => 'dos' } }
+        { 'data' => { 1 => 'uno', 2 => 'dos' } },
       )
     }
   end
@@ -34,7 +34,7 @@ describe 'structured_data' do
 
     it {
       expect(subject).to contain_structured_data__def('thing').with(
-        { 'data' => { 'first' => 1, 'second' => 2 } }
+        { 'data' => { 'first' => 1, 'second' => 2 } },
       )
     }
   end
@@ -47,8 +47,8 @@ describe 'structured_data' do
         'sec.ond' => 2,
         'third' => {
           'alpha' => 'a',
-          'beta' => 'b'
-        }
+          'beta' => 'b',
+        },
       } }
     end
 
@@ -59,9 +59,9 @@ describe 'structured_data' do
           'sec.ond' => 2,
           'third' => {
             'alpha' => 'a',
-            'beta' => 'b'
-          }
-        } }
+            'beta' => 'b',
+          },
+        } },
       )
     }
   end

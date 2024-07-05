@@ -11,7 +11,7 @@ describe 'node_params' do
     false => false,
     integer: 5,
     float: 4.4,
-    nil: nil
+    nil: nil,
   }
 
   let(:node_params) { fuzzed }

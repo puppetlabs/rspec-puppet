@@ -86,7 +86,7 @@ module RSpec::Puppet
 
     def find_function(function_name = self.class.top_level_description)
       with_vardir do
-        env = adapter.current_environment
+        adapter.current_environment
 
         context_overrides = compiler.context_overrides
         func = nil
@@ -99,9 +99,7 @@ module RSpec::Puppet
 
         return func if func.func
 
-        if Puppet::Parser::Functions.function(function_name)
-          V3FunctionWrapper.new(function_name, scope.method(:"function_#{function_name}"))
-        end
+        V3FunctionWrapper.new(function_name, scope.method(:"function_#{function_name}")) if Puppet::Parser::Functions.function(function_name)
       end
     end
 
@@ -148,7 +146,7 @@ module RSpec::Puppet
 
       node_options = {
         parameters: fact_values,
-        facts: node_facts
+        facts: node_facts,
       }
 
       stub_facts! fact_values
@@ -157,9 +155,9 @@ module RSpec::Puppet
 
       Puppet.push_context(
         {
-          trusted_information: Puppet::Context::TrustedInformation.new('remote', node_name, trusted_values)
+          trusted_information: Puppet::Context::TrustedInformation.new('remote', node_name, trusted_values),
         },
-        'Context for spec trusted hash'
+        'Context for spec trusted hash',
       )
 
       compiler = Puppet::Parser::Compiler.new(node)
@@ -168,9 +166,9 @@ module RSpec::Puppet
       Puppet.push_context(
         {
           loaders: loaders,
-          global_scope: compiler.context_overrides[:global_scope]
+          global_scope: compiler.context_overrides[:global_scope],
         },
-        'set globals'
+        'set globals',
       )
       compiler
     end

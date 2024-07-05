@@ -23,7 +23,7 @@ describe RSpec::Puppet::ManifestMatchers::CountGeneric do
     [
       %w[Class main],
       %w[Class Settings],
-      %w[Stage main]
+      %w[Stage main],
     ]
   end
 
@@ -147,7 +147,7 @@ describe RSpec::Puppet::ManifestMatchers::CountGeneric do
       let(:resources) do
         [
           ['Class', 'test'],
-          ['Node', 'testhost.test.com']
+          ['Node', 'testhost.test.com'],
         ]
       end
 
@@ -160,7 +160,7 @@ describe RSpec::Puppet::ManifestMatchers::CountGeneric do
           super() + [
             ['File', '/tmp/testfile'],
             ['Exec', 'some command'],
-            ['Service', 'a service']
+            ['Service', 'a service'],
           ]
         end
 
@@ -188,7 +188,7 @@ describe RSpec::Puppet::ManifestMatchers::CountGeneric do
       let(:resources) do
         [
           %w[Class test],
-          %w[File testfile]
+          %w[File testfile],
         ]
       end
 

@@ -6,7 +6,7 @@ module RSpec::Puppet
       DEFAULT_RESOURCES = [
         'Class[main]',
         'Class[Settings]',
-        'Stage[main]'
+        'Stage[main]',
       ].freeze
 
       attr_reader :resource_type
@@ -46,10 +46,10 @@ module RSpec::Puppet
 
         desc << "contain exactly #{@expected_number}"
         if @type == 'class'
-          desc << (@expected_number == 1 ? 'class' : 'classes').to_s
+          desc << ((@expected_number == 1) ? 'class' : 'classes').to_s
         else
           desc << @resource_type.to_s unless @type == 'resource'
-          desc << (@expected_number == 1 ? 'resource' : 'resources').to_s
+          desc << ((@expected_number == 1) ? 'resource' : 'resources').to_s
         end
 
         desc.join(' ')
