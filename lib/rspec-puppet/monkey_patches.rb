@@ -175,7 +175,7 @@ module Puppet
       module_function :windows?
 
       def actual_platform
-        @actual_platform ||= !!File::ALT_SEPARATOR ? :windows : :posix
+        @actual_platform ||= (!!File::ALT_SEPARATOR) ? :windows : :posix
       end
       module_function :actual_platform
 
@@ -394,7 +394,7 @@ module Kernel
   alias old_require require
   def require(path)
     return if ['puppet/util/windows',
-               'win32/registry'].include?(path) && RSpec::Puppet.rspec_puppet_example? && Puppet::Util::Platform.pretend_windows?
+               'win32/registry',].include?(path) && RSpec::Puppet.rspec_puppet_example? && Puppet::Util::Platform.pretend_windows?
 
     old_require(path)
   end

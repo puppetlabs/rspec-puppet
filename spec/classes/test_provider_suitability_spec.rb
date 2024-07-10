@@ -7,18 +7,18 @@ describe 'test::provider_suitability' do
     {
       operatingsystem: 'Darwin',
       osfamily: 'Darwin',
-      kernel: 'Darwin'
+      kernel: 'Darwin',
     },
     {
       operatingsystem: 'CentOS',
       osfamily: 'RedHat',
-      kernel: 'Linux'
+      kernel: 'Linux',
     },
     {
       operatingsystem: 'Solaris',
       osfamily: 'Solaris',
-      kernel: 'SunOS'
-    }
+      kernel: 'SunOS',
+    },
   ].each do |f|
     context "On #{f[:operatingsystem]}" do
       let(:facts) { f }

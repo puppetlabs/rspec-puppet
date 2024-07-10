@@ -148,7 +148,7 @@ module RSpec::Puppet
 
       node_options = {
         parameters: fact_values,
-        facts: node_facts
+        facts: node_facts,
       }
 
       stub_facts! fact_values
@@ -157,9 +157,9 @@ module RSpec::Puppet
 
       Puppet.push_context(
         {
-          trusted_information: Puppet::Context::TrustedInformation.new('remote', node_name, trusted_values)
+          trusted_information: Puppet::Context::TrustedInformation.new('remote', node_name, trusted_values),
         },
-        'Context for spec trusted hash'
+        'Context for spec trusted hash',
       )
 
       compiler = Puppet::Parser::Compiler.new(node)
@@ -168,9 +168,9 @@ module RSpec::Puppet
       Puppet.push_context(
         {
           loaders: loaders,
-          global_scope: compiler.context_overrides[:global_scope]
+          global_scope: compiler.context_overrides[:global_scope],
         },
-        'set globals'
+        'set globals',
       )
       compiler
     end

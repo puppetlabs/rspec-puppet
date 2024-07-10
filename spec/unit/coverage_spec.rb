@@ -48,7 +48,7 @@ describe RSpec::Puppet::Coverage do
         [/escapism\\\\\Z/, /\ANotify\[.*escapism\\\\\]\z/],
         [/escapism\\\\$/, /\ANotify\[.*escapism\\\\\]\z/],
         [/escapism\\\\\$/, /\ANotify\[.*escapism\\\\\$.*\]\z/],
-        [/escapism\\\\\\\$/, /\ANotify\[.*escapism\\\\\\\$.*\]\z/]
+        [/escapism\\\\\\\$/, /\ANotify\[.*escapism\\\\\\\$.*\]\z/],
       ].each do |input, filter|
         it "maps #{input} to #{filter}" do
           subject.add_filter_regex('notify', input)

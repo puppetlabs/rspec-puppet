@@ -28,7 +28,7 @@ module RSpec::Puppet
       end
 
       def failure_message
-        "expected that the type alias would #{description} but it raised the #{@error_msgs.length == 1 ? 'error' : 'errors'} #{@error_msgs.join(', ')}"
+        "expected that the type alias would #{description} but it raised the #{(@error_msgs.length == 1) ? 'error' : 'errors'} #{@error_msgs.join(', ')}"
       end
 
       def failure_message_when_negated

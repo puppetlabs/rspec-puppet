@@ -102,11 +102,11 @@ module RSpec::Puppet
           trusted_external_data: trusted_external_data_hash,
           ignored_cache_params: {
             hiera_data_value: hiera_data_value,
-            rspec_config_values: rspec_config_values
-          }
+            rspec_config_values: rspec_config_values,
+          },
         )
 
-        test_module = type == :host ? nil : class_name.split('::').first
+        test_module = (type == :host) ? nil : class_name.split('::').first
         if type == :define
           RSpec::Puppet::Coverage.add_filter(class_name, title)
         else
@@ -205,14 +205,14 @@ module RSpec::Puppet
     def facts_hash(node)
       base_facts = {
         'clientversion' => Puppet::PUPPETVERSION,
-        'environment' => environment.to_s
+        'environment' => environment.to_s,
       }
 
       node_facts = {
         'hostname' => node.split('.').first,
         'fqdn' => node,
         'domain' => node.split('.', 2).last,
-        'clientcert' => node
+        'clientcert' => node,
       }
 
       # Puppet 6.9.0 started setting a `serverip6` server fact which is set
@@ -227,7 +227,7 @@ module RSpec::Puppet
       networking_facts = {
         'hostname' => node_facts['hostname'],
         'fqdn' => node_facts['fqdn'],
-        'domain' => node_facts['domain']
+        'domain' => node_facts['domain'],
       }
 
       result_facts = if RSpec.configuration.default_facts.any?
@@ -302,7 +302,7 @@ module RSpec::Puppet
 
       # And then add the server name and IP
       { 'servername' => 'fqdn',
-        'serverip' => 'ipaddress' }.each do |var, fact|
+        'serverip' => 'ipaddress', }.each do |var, fact|
         if (value = Puppet.runtime[:facter].value(fact))
           server_facts[var] = value
         else
@@ -382,7 +382,7 @@ module RSpec::Puppet
                                        code: code,
                                        exported: exported,
                                        node_params: node_params,
-                                       trusted_external: {}
+                                       trusted_external: {},
                                      })
     end
 
@@ -422,9 +422,9 @@ module RSpec::Puppet
       trusted_info.push(trusted_external_data)
       Puppet.push_context(
         {
-          trusted_information: Puppet::Context::TrustedInformation.new(*trusted_info)
+          trusted_information: Puppet::Context::TrustedInformation.new(*trusted_info),
         },
-        'Context for spec trusted hash'
+        'Context for spec trusted hash',
       )
 
       node_obj.add_server_facts(server_facts_hash)

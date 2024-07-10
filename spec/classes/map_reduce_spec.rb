@@ -5,7 +5,7 @@ require 'spec_helper'
 describe 'map_reduce' do
   let(:params) do
     {
-      values: [0, 1, 2]
+      values: [0, 1, 2],
     }
   end
 

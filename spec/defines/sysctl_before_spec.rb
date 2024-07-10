@@ -19,7 +19,7 @@ describe 'sysctl::before' do
   let(:title) { 'test define' }
   let(:pre_condition) do
     ['# we need sysctl common',
-     'class {"sysctl::common":}']
+     'class {"sysctl::common":}',]
   end
   let(:params) { { value: 'title' } }
 

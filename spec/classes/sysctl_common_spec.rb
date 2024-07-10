@@ -20,7 +20,7 @@ describe 'sysctl::common' do
     it 'passes if the parameters are contained in the resource' do
       expect(subject).to contain_exec('sysctl/reload').with(
         'refreshonly' => 'true',
-        'returns' => [0, 2]
+        'returns' => [0, 2],
       )
     end
   end
@@ -73,7 +73,7 @@ describe 'sysctl::common' do
     expect(subject).to contain_exec('sysctl/reload').only_with(
       command: '/sbin/sysctl -p /etc/sysctl.conf',
       refreshonly: true,
-      returns: [0, 2]
+      returns: [0, 2],
     )
   }
 
@@ -88,7 +88,7 @@ describe 'sysctl::common' do
     expect do
       expect(subject).to contain_exec('sysctl/reload').only_with(
         command: '/sbin/sysctl -p /etc/sysctl.conf',
-        returns: [0, 2]
+        returns: [0, 2],
       )
     end.to raise_error(RSpec::Expectations::ExpectationNotMetError)
   end
@@ -98,7 +98,7 @@ describe 'sysctl::common' do
       expect(subject).to contain_exec('sysctl/reload').only_with(
         command: '/sbin/sysctl -p /etc/sysctl.conf',
         refreshonly: true,
-        creates: '/tmp/bla'
+        creates: '/tmp/bla',
       )
     end.to raise_error(RSpec::Expectations::ExpectationNotMetError)
   end

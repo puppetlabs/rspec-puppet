@@ -12,8 +12,8 @@ describe 'structured_facts::hash' do
     let(:facts) do
       {
         os: {
-          'family' => family
-        }
+          'family' => family,
+        },
       }
     end
 
@@ -27,8 +27,8 @@ describe 'structured_facts::hash' do
     let(:facts) do
       {
         os: {
-          family: family
-        }
+          family: family,
+        },
       }
     end
 
@@ -43,8 +43,8 @@ describe 'structured_facts::hash' do
     let(:facts) do
       {
         oS: {
-          family: family
-        }
+          family: family,
+        },
       }
     end
 
@@ -58,8 +58,8 @@ describe 'structured_facts::hash' do
     let(:facts) do
       {
         'os' => {
-          'family' => family
-        }
+          'family' => family,
+        },
       }
     end
 
@@ -74,8 +74,8 @@ describe 'structured_facts::hash' do
     let(:facts) do
       {
         'oS' => {
-          'family' => family
-        }
+          'family' => family,
+        },
       }
     end
 
@@ -91,8 +91,8 @@ describe 'structured_facts::top_scope' do
     let(:facts) do
       {
         os: {
-          'family' => family
-        }
+          'family' => family,
+        },
       }
     end
 
@@ -106,8 +106,8 @@ describe 'structured_facts::top_scope' do
     let(:facts) do
       {
         os: {
-          family: family
-        }
+          family: family,
+        },
       }
     end
 
@@ -122,8 +122,8 @@ describe 'structured_facts::top_scope' do
     let(:facts) do
       {
         Os: {
-          family: family
-        }
+          family: family,
+        },
       }
     end
 
@@ -137,8 +137,8 @@ describe 'structured_facts::top_scope' do
     let(:facts) do
       {
         'os' => {
-          'family' => family
-        }
+          'family' => family,
+        },
       }
     end
 
@@ -153,8 +153,8 @@ describe 'structured_facts::top_scope' do
     let(:facts) do
       {
         'Os' => {
-          'family' => family
-        }
+          'family' => family,
+        },
       }
     end
 
@@ -170,8 +170,8 @@ describe 'structured_facts::case_check' do
     let(:facts) do
       {
         'custom_fact' => {
-          'MixedCase' => 'value'
-        }
+          'MixedCase' => 'value',
+        },
       }
     end
 
