@@ -2,59 +2,59 @@
 layout: cards
 title: Documentation
 icon: fa fa-files-o
-cards:
+cards:  
     -
         title: Getting Started
         text:
-        path: /documentation/setup/
+        path: setup/
         icon: fa fa-toggle-on
         colour: green
     -
         title: Configuration
         text:
-        path: /documentation/configuration/
+        path: configuration/
         icon: fa fa-wrench
         colour: blue
     -
         title: Testing Classes
         text:
-        path: /documentation/classes/
+        path: classes/
         icon: fa fa-book
         colour: pink
     -
         title: Testing Defined Types
         text:
-        path: /documentation/defined_types/
+        path: defined_types/
         icon: fa fa-copy
         colour: purple
     -
         title: Testing Functions
         text:
-        path: /documentation/functions/
+        path: functions/
         icon: fa fa-superscript
         colour: red
     -
         title: Testing Hosts
         text:
-        path: /documentation/hosts/
+        path: hosts/
         icon: fa fa-server
         colour: orange
     -
         title: Testing Types
         text:
-        path: /documentation/types/
+        path: types/
         icon: fa fa-puzzle-piece
         colour: blue
     -
         title: Testing Type Aliases
         text:
-        path: /documentation/type_aliases/
+        path: type_aliases/
         icon: fa fa-exchange
         colour: pink
     -
         title: Coverage Reports
         text:
-        path: /documentation/coverage/
+        path: coverage/
         icon: fa fa-map-o
         colour: purple
 ---

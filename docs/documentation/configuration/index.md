@@ -5,11 +5,11 @@ icon: fa fa-wrench
 breadcrumbs:
     -
         name: Documentation
-        path: /documentation/
+        path: /rspec-puppet/documentation/
 ---
 rspec-puppet can be configured by modifying the `RSpec.configure` block in your
 `spec/spec_helper.rb` file. If you followed the [setup
-instructions](/documentation/setup/) you'll already have an `RSpec.configure`
+instructions]({{site.url}}/documentation/setup) you'll already have an `RSpec.configure`
 block that you can modify.
 
 {% highlight ruby %}

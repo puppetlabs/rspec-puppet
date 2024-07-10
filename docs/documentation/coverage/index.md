@@ -5,7 +5,7 @@ icon: fa fa-map-o
 breadcrumbs:
     -
         name: Documentation
-        path: /documentation/
+        path: /rspec-puppet/documentation/
 ---
 
 ## Basic Report

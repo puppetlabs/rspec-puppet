@@ -5,7 +5,7 @@ icon: fa fa-toggle-on
 breadcrumbs:
     -
         name: Documentation
-        path: /documentation/
+        path: /rspec-puppet/documentation/
 ---
 ## Installation
 
