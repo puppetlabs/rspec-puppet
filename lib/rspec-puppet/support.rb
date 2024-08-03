@@ -301,8 +301,7 @@ module RSpec::Puppet
       server_facts['serverversion'] = Puppet.version.to_s
 
       # And then add the server name and IP
-      { 'servername' => 'fqdn',
-        'serverip' => 'ipaddress' }.each do |var, fact|
+      { 'servername' => 'networking.fqdn', 'serverip' => 'networking.ip' }.each do |var, fact|
         if (value = Puppet.runtime[:facter].value(fact))
           server_facts[var] = value
         else
@@ -311,8 +310,8 @@ module RSpec::Puppet
       end
 
       if server_facts['servername'].nil?
-        host = Puppet.runtime[:facter].value(:hostname)
-        server_facts['servername'] = if (domain = Puppet.runtime[:facter].value(:domain))
+        host = Puppet.runtime[:facter].value('networking.hostname')
+        server_facts['servername'] = if (domain = Puppet.runtime[:facter].value('networking.domain'))
                                        [host, domain].join('.')
                                      else
                                        host
