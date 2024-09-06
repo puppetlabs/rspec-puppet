@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v5.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v5.0.0) - 2024-09-06
+
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.2...v5.0.0)
+
+### Changed
+
+- Unwrap sensitive values in error messages [#42](https://github.com/puppetlabs/rspec-puppet/pull/42) ([smortex](https://github.com/smortex))
+
+### Fixed
+
+- server_facts: Switch from legacy to structured facts [#127](https://github.com/puppetlabs/rspec-puppet/pull/127) ([bastelfreak](https://github.com/bastelfreak))
+- (bug) - Add license file to built gem [#108](https://github.com/puppetlabs/rspec-puppet/pull/108) ([jordanbreen28](https://github.com/jordanbreen28))
+
 ## [v4.0.2](https://github.com/puppetlabs/rspec-puppet/tree/v4.0.2) - 2023-12-05
 
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.1...v4.0.2)
@@ -27,6 +40,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v3.0.0...v4.0.0)
 
 ### Changed
+
 - (CAT-1226) - Remove Compatibility for Puppet 7.10 and below [#73](https://github.com/puppetlabs/rspec-puppet/pull/73) ([jordanbreen28](https://github.com/jordanbreen28))
 - Drop RSpec 2 & Ruby 1 compatiblity [#67](https://github.com/puppetlabs/rspec-puppet/pull/67) ([ekohl](https://github.com/ekohl))
 - Remove puppet applications support [#54](https://github.com/puppetlabs/rspec-puppet/pull/54) ([nabertrand](https://github.com/nabertrand))
@@ -44,6 +58,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v2.12.0...v3.0.0.rc.1)
 
 ### Changed
+
 - (CONT-808) Ruby 3 / Puppet 8 Support [#48](https://github.com/puppetlabs/rspec-puppet/pull/48) ([chelnak](https://github.com/chelnak))
 
 ### Added
@@ -97,7 +112,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [v2.8.0](https://github.com/puppetlabs/rspec-puppet/tree/v2.8.0) - 2020-11-05
 
-[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v2.7.9...v2.8.0)
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v2.7.10...v2.8.0)
+
+## [v2.7.10](https://github.com/puppetlabs/rspec-puppet/tree/v2.7.10) - 2020-07-15
+
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v2.7.9...v2.7.10)
 
 ## [v2.7.9](https://github.com/puppetlabs/rspec-puppet/tree/v2.7.9) - 2020-07-14
 
