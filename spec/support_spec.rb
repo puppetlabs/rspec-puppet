@@ -82,8 +82,8 @@ describe RSpec::Puppet::Support do
         'hostname' => 'fy73bdiqazmyj62',
         'networking' => {
           'hostname' => 'fy73bdiqazmyj62',
-          'fqdn' => 'fy73bdiqazmyj62.delivery.puppetlabs.net'
-        }
+          'fqdn' => 'fy73bdiqazmyj62.delivery.puppetlabs.net',
+        },
       }
     end
 
@@ -100,9 +100,9 @@ describe RSpec::Puppet::Support do
                           'os' => {
                             'family' => family,
                             'version' => {
-                              'major' => '10'
-                            }
-                          }
+                              'major' => '10',
+                            },
+                          },
                         })
         end
 
@@ -114,7 +114,7 @@ describe RSpec::Puppet::Support do
       context 'with osfamily fact' do
         let(:build_hash) do
           super().merge({
-                          'osfamily' => family
+                          'osfamily' => family,
                         })
         end
 

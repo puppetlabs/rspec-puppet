@@ -175,7 +175,7 @@ module Puppet
       module_function :windows?
 
       def actual_platform
-        @actual_platform ||= !!File::ALT_SEPARATOR ? :windows : :posix
+        @actual_platform ||= (!!File::ALT_SEPARATOR) ? :windows : :posix
       end
       module_function :actual_platform
 
@@ -366,7 +366,7 @@ end
 # defined. This check only makes sense when applying the catalogue to a host
 # and so can be safely stubbed out for unit testing.
 Puppet::Type.type(:file).provide(:windows).class_eval do
-  old_supports_acl = instance_method(:supports_acl?) if respond_to?(:supports_acl?)
+  instance_method(:supports_acl?) if respond_to?(:supports_acl?)
 
   def supports_acl?(_path)
     if RSpec::Puppet.rspec_puppet_example?
@@ -376,7 +376,7 @@ Puppet::Type.type(:file).provide(:windows).class_eval do
     end
   end
 
-  old_manages_symlinks = instance_method(:manages_symlinks?) if respond_to?(:manages_symlinks?)
+  instance_method(:manages_symlinks?) if respond_to?(:manages_symlinks?)
 
   def manages_symlinks?
     if RSpec::Puppet.rspec_puppet_example?
@@ -394,7 +394,7 @@ module Kernel
   alias old_require require
   def require(path)
     return if ['puppet/util/windows',
-               'win32/registry'].include?(path) && RSpec::Puppet.rspec_puppet_example? && Puppet::Util::Platform.pretend_windows?
+               'win32/registry',].include?(path) && RSpec::Puppet.rspec_puppet_example? && Puppet::Util::Platform.pretend_windows?
 
     old_require(path)
   end

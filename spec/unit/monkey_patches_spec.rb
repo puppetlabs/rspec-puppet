@@ -136,7 +136,7 @@ describe 'Puppet::Module#match_manifests' do
     Puppet::Module.new(
       'escape',
       File.join(RSpec.configuration.module_path, 'escape'),
-      'production'
+      'production',
     )
   end
 

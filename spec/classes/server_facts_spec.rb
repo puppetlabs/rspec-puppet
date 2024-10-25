@@ -5,7 +5,7 @@ require 'spec_helper'
 describe 'server_facts' do
   let(:facts) do
     {
-      'networking' => { 'ip' => '192.168.1.10' }
+      'networking' => { 'ip' => '192.168.1.10' },
     }
   end
   let(:node) { 'test123.test.com' }

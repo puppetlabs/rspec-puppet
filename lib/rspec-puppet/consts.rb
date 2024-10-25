@@ -5,24 +5,24 @@ module RSpec::Puppet::Consts
     posix: {
       'File::PATH_SEPARATOR' => ':',
       'File::ALT_SEPARATOR' => nil,
-      'Pathname::SEPARATOR_PAT' => /#{Regexp.quote('/')}/
+      'Pathname::SEPARATOR_PAT' => /#{Regexp.quote('/')}/,
     },
     windows: {
       'File::PATH_SEPARATOR' => ';',
       'File::ALT_SEPARATOR' => '\\',
-      'Pathname::SEPARATOR_PAT' => /[#{Regexp.quote('\\')}#{Regexp.quote('/')}]/
-    }
+      'Pathname::SEPARATOR_PAT' => /[#{Regexp.quote('\\')}#{Regexp.quote('/')}]/,
+    },
   }.freeze
 
   FEATURES = {
     posix: {
       posix: true,
-      microsoft_windows: false
+      microsoft_windows: false,
     },
     windows: {
       posix: false,
-      microsoft_windows: true
-    }
+      microsoft_windows: true,
+    },
   }.freeze
 
   def self.stub_consts_for(platform)

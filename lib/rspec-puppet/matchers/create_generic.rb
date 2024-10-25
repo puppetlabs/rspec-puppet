@@ -83,7 +83,6 @@ module RSpec::Puppet
       end
 
       def matches?(catalogue)
-        ret = true
         @catalogue = catalogue.is_a?(Puppet::Resource::Catalog) ? catalogue : catalogue.call
         resource = @catalogue.resource(@referenced_type, @title)
 
@@ -104,14 +103,9 @@ module RSpec::Puppet
                       'name'
                     end
 
-          if @expected_params.none? { |param| param.first.to_s == namevar } && rsrc_hsh.key?(namevar.to_sym)
-            rsrc_hsh.delete(namevar.to_sym)
-          end
+          rsrc_hsh.delete(namevar.to_sym) if @expected_params.none? { |param| param.first.to_s == namevar } && rsrc_hsh.key?(namevar.to_sym)
 
-          if @expected_params_count && rsrc_hsh.size != @expected_params_count
-            ret = false
-            (@errors ||= []) << "exactly #{@expected_params_count} parameters but the catalogue contains #{rsrc_hsh.size}"
-          end
+          (@errors ||= []) << "exactly #{@expected_params_count} parameters but the catalogue contains #{rsrc_hsh.size}" if @expected_params_count && rsrc_hsh.size != @expected_params_count
 
           check_params(rsrc_hsh, @expected_params, :should) if @expected_params.any?
           check_params(rsrc_hsh, @expected_undef_params, :not) if @expected_undef_params.any?
@@ -207,12 +201,12 @@ module RSpec::Puppet
         output = []
         list.each do |param, value|
           if value.nil?
-            output << "#{param} #{type == :not ? 'un' : ''}defined"
+            output << "#{param} #{(type == :not) ? 'un' : ''}defined"
           else
-            a = type == :not ? '!' : '='
+            a = (type == :not) ? '!' : '='
             b = value.is_a?(Regexp) ? '~' : '>'
             output << if (param.to_s == 'content') && value.is_a?(String)
-                        "#{param} #{type == :not ? 'not ' : ''} supplied string"
+                        "#{param} #{(type == :not) ? 'not ' : ''} supplied string"
                       else
                         "#{param} #{a}#{b} #{value.inspect}"
                       end
@@ -223,33 +217,25 @@ module RSpec::Puppet
 
       def check_befores(_catalogue, resource)
         @befores.each do |ref|
-          unless precedes?(resource, canonicalize_resource(ref))
-            @errors << BeforeRelationshipError.new(resource.to_ref, ref)
-          end
+          @errors << BeforeRelationshipError.new(resource.to_ref, ref) unless precedes?(resource, canonicalize_resource(ref))
         end
       end
 
       def check_requires(_catalogue, resource)
         @requires.each do |ref|
-          unless precedes?(canonicalize_resource(ref), resource)
-            @errors << RequireRelationshipError.new(resource.to_ref, ref)
-          end
+          @errors << RequireRelationshipError.new(resource.to_ref, ref) unless precedes?(canonicalize_resource(ref), resource)
         end
       end
 
       def check_notifies(_catalogue, resource)
         @notifies.each do |ref|
-          unless notifies?(resource, canonicalize_resource(ref))
-            @errors << NotifyRelationshipError.new(resource.to_ref, ref)
-          end
+          @errors << NotifyRelationshipError.new(resource.to_ref, ref) unless notifies?(resource, canonicalize_resource(ref))
         end
       end
 
       def check_subscribes(_catalogue, resource)
         @subscribes.each do |ref|
-          unless notifies?(canonicalize_resource(ref), resource)
-            @errors << SubscribeRelationshipError.new(resource.to_ref, ref)
-          end
+          @errors << SubscribeRelationshipError.new(resource.to_ref, ref) unless notifies?(canonicalize_resource(ref), resource)
         end
       end
 
@@ -334,9 +320,7 @@ module RSpec::Puppet
             before_refs = relationship_refs(u, :before) + relationship_refs(u, :notify)
             require_refs = relationship_refs(v, :require) + relationship_refs(u, :subscribe)
 
-            if before_refs.include?(v.to_ref) || require_refs.include?(u.to_ref) || (before_refs & require_refs).any?
-              return true
-            end
+            return true if before_refs.include?(v.to_ref) || require_refs.include?(u.to_ref) || (before_refs & require_refs).any?
           end
         end
 

@@ -13,7 +13,7 @@ describe 'fake' do
     {
       parameters: { baddies: %w[one two], goodies: %w[three four] },
       properties: { baddies: %w[five fix], goodies: %w[seven eight] },
-      features: { baddies: %w[nine ten], goodies: %w[eleven twelve] }
+      features: { baddies: %w[nine ten], goodies: %w[eleven twelve] },
     }.each do |k, v|
       describe "#{k} checks" do
         [v[:baddies], v[:baddies].first].each do |baddies|
@@ -22,7 +22,7 @@ describe 'fake' do
               expect(subject).to be_valid_type.send(:"with_#{k}", baddies)
             end.to raise_error(
               RSpec::Expectations::ExpectationNotMetError,
-              /Invalid #{k}: #{Array(baddies).join(',')}/
+              /Invalid #{k}: #{Array(baddies).join(',')}/,
             )
           end
         end
@@ -50,7 +50,7 @@ describe 'fake' do
         expect(subject).to be_valid_type.with_provider(:non_matching)
       end.to raise_error(
         RSpec::Expectations::ExpectationNotMetError,
-        /Expected provider: non_matching does not match: default/
+        /Expected provider: non_matching does not match: default/,
       )
     end
 
@@ -61,17 +61,17 @@ describe 'fake' do
     it 'fails with invalid parameters' do
       expect do
         expect(subject).to be_valid_type.with_set_attributes(
-          four: 'three'
+          four: 'three',
         )
       end.to raise_error(
         Puppet::Error,
-        %r{Valid values match /\(one\|two\)/}
+        %r{Valid values match /\(one\|two\)/},
       )
     end
 
     it 'does not fail with valid parameters' do
       expect(subject).to be_valid_type.with_set_attributes(
-        four: 'one'
+        four: 'one',
       )
     end
   end

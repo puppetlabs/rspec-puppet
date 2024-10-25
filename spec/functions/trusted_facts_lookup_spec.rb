@@ -17,7 +17,7 @@ describe 'trusted_facts::lookup' do
     let(:trusted_facts) do
       {
         'extra1' => '1',
-        'extra2' => '2'
+        'extra2' => '2',
       }
     end
 

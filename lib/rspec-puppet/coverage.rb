@@ -232,9 +232,7 @@ module RSpec::Puppet
         end
 
         # This is not available on RSpec 2.x
-        if coverage_results.execution_result.respond_to?(:pending_message)
-          coverage_results.execution_result.pending_message = report[:text]
-        end
+        coverage_results.execution_result.pending_message = report[:text] if coverage_results.execution_result.respond_to?(:pending_message)
       else
         puts "The desired coverage must be 0 <= x <= 100, not '#{coverage_desired.inspect}'"
       end
@@ -259,7 +257,7 @@ module RSpec::Puppet
       text = [
         "Total resources:   #{report[:total]}",
         "Touched resources: #{report[:touched]}",
-        "Resource coverage: #{report[:coverage]}%"
+        "Resource coverage: #{report[:coverage]}%",
       ]
 
       if (report[:untouched]).positive?
@@ -341,7 +339,7 @@ module RSpec::Puppet
 
       def to_hash
         {
-          touched: touched?
+          touched: touched?,
         }
       end
 

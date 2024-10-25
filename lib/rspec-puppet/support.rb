@@ -102,11 +102,11 @@ module RSpec::Puppet
           trusted_external_data: trusted_external_data_hash,
           ignored_cache_params: {
             hiera_data_value: hiera_data_value,
-            rspec_config_values: rspec_config_values
-          }
+            rspec_config_values: rspec_config_values,
+          },
         )
 
-        test_module = type == :host ? nil : class_name.split('::').first
+        test_module = (type == :host) ? nil : class_name.split('::').first
         if type == :define
           RSpec::Puppet::Coverage.add_filter(class_name, title)
         else
@@ -205,14 +205,14 @@ module RSpec::Puppet
     def facts_hash(node)
       base_facts = {
         'clientversion' => Puppet::PUPPETVERSION,
-        'environment' => environment.to_s
+        'environment' => environment.to_s,
       }
 
       node_facts = {
         'hostname' => node.split('.').first,
         'fqdn' => node,
         'domain' => node.split('.', 2).last,
-        'clientcert' => node
+        'clientcert' => node,
       }
 
       # Puppet 6.9.0 started setting a `serverip6` server fact which is set
@@ -220,14 +220,12 @@ module RSpec::Puppet
       # by FacterDB don't have an `ipaddress6` fact set, then the normal Facter
       # fact will be resolved, which can result in Ruby trying to load Windows
       # only gems on Linux. This is only a problem if facter is used.
-      if RSpec.configuration.facter_implementation.to_sym == :facter
-        node_facts['ipaddress6'] = 'FE80:0000:0000:0000:AAAA:AAAA:AAAA'
-      end
+      node_facts['ipaddress6'] = 'FE80:0000:0000:0000:AAAA:AAAA:AAAA' if RSpec.configuration.facter_implementation.to_sym == :facter
 
       networking_facts = {
         'hostname' => node_facts['hostname'],
         'fqdn' => node_facts['fqdn'],
-        'domain' => node_facts['domain']
+        'domain' => node_facts['domain'],
       }
 
       result_facts = if RSpec.configuration.default_facts.any?
@@ -275,9 +273,7 @@ module RSpec::Puppet
     def trusted_facts_hash(_node_name)
       extensions = {}
 
-      if RSpec.configuration.default_trusted_facts.any?
-        extensions.merge!(munge_facts(RSpec.configuration.default_trusted_facts))
-      end
+      extensions.merge!(munge_facts(RSpec.configuration.default_trusted_facts)) if RSpec.configuration.default_trusted_facts.any?
 
       extensions.merge!(munge_facts(trusted_facts)) if respond_to?(:trusted_facts)
       extensions
@@ -286,9 +282,7 @@ module RSpec::Puppet
     def trusted_external_data_hash
       external_data = {}
 
-      if RSpec.configuration.default_trusted_external_data.any?
-        external_data.merge!(munge_facts(RSpec.configuration.default_trusted_external_data))
-      end
+      external_data.merge!(munge_facts(RSpec.configuration.default_trusted_external_data)) if RSpec.configuration.default_trusted_external_data.any?
 
       external_data.merge!(munge_facts(trusted_external_data)) if respond_to?(:trusted_external_data)
       external_data
@@ -381,7 +375,7 @@ module RSpec::Puppet
                                        code: code,
                                        exported: exported,
                                        node_params: node_params,
-                                       trusted_external: {}
+                                       trusted_external: {},
                                      })
     end
 
@@ -421,9 +415,9 @@ module RSpec::Puppet
       trusted_info.push(trusted_external_data)
       Puppet.push_context(
         {
-          trusted_information: Puppet::Context::TrustedInformation.new(*trusted_info)
+          trusted_information: Puppet::Context::TrustedInformation.new(*trusted_info),
         },
-        'Context for spec trusted hash'
+        'Context for spec trusted hash',
       )
 
       node_obj.add_server_facts(server_facts_hash)
@@ -476,9 +470,7 @@ module RSpec::Puppet
           Find.prune if %w[modules work-dir].any? do |dir|
             file.relative_path_from(path).to_s.start_with?("spec/fixtures/#{dir}")
           end
-          if file.basename.to_s.eql?(Puppet::Pops::Lookup::HieraConfig::CONFIG_FILE_NAME)
-            return @@fixture_hiera_configs[mod.name] = file.to_s
-          end
+          return @@fixture_hiera_configs[mod.name] = file.to_s if file.basename.to_s.eql?(Puppet::Pops::Lookup::HieraConfig::CONFIG_FILE_NAME)
         end
       end
       @@fixture_hiera_configs[mod.name]
