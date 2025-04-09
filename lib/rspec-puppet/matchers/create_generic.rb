@@ -30,10 +30,10 @@ module RSpec::Puppet
         self
       end
 
-      def only_with(*args, &block)
+      def only_with(*args, &)
         params = args.shift
         @expected_params_count = (@expected_params_count || 0) + params.compact.size
-        with(params, &block)
+        with(params, &)
       end
 
       def without(*args)
@@ -62,7 +62,7 @@ module RSpec::Puppet
         self
       end
 
-      def method_missing(method, *args, &block)
+      def method_missing(method, *args, &)
         case method.to_s
         when /^with_/
           param = method.to_s.gsub(/^with_/, '')
