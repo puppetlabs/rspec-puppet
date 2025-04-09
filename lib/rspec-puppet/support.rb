@@ -128,7 +128,7 @@ module RSpec::Puppet
         File.read(path)
       elsif File.directory?(path)
         # Read and concatenate all .pp files.
-        Dir[File.join(path, '*.pp')].sort.map do |f|
+        Dir[File.join(path, '*.pp')].map do |f|
           File.read(f)
         end.join("\n")
       else

@@ -320,7 +320,7 @@ module RSpec::Puppet
             before_refs = relationship_refs(u, :before) + relationship_refs(u, :notify)
             require_refs = relationship_refs(v, :require) + relationship_refs(u, :subscribe)
 
-            return true if before_refs.include?(v.to_ref) || require_refs.include?(u.to_ref) || (before_refs & require_refs).any?
+            return true if before_refs.include?(v.to_ref) || require_refs.include?(u.to_ref) || before_refs.intersect?(require_refs)
           end
         end
 
