@@ -2,10 +2,10 @@
 
 module RSpec::Puppet
   module ManifestMatchers
-    def method_missing(method, *args, &block)
+    def method_missing(method, *args, &)
       if /^(create|contain)_/.match?(method.to_s)
         return RSpec::Puppet::ManifestMatchers::CreateGeneric.new(method, *args,
-                                                                  &block)
+                                                                  &)
       end
       if /^have_.+_count$/.match?(method.to_s)
         return RSpec::Puppet::ManifestMatchers::CountGeneric.new(nil, args[0],
@@ -18,7 +18,7 @@ module RSpec::Puppet
   end
 
   module FunctionMatchers
-    def method_missing(method, *args, &block)
+    def method_missing(method, *args, &)
       return RSpec::Puppet::FunctionMatchers::Run.new if method == :run
 
       super
@@ -26,8 +26,8 @@ module RSpec::Puppet
   end
 
   module TypeMatchers
-    def method_missing(method, *args, &block)
-      return RSpec::Puppet::TypeMatchers::CreateGeneric.new(method, *args, &block) if method == :be_valid_type
+    def method_missing(method, ...)
+      return RSpec::Puppet::TypeMatchers::CreateGeneric.new(method, ...) if method == :be_valid_type
 
       super
     end

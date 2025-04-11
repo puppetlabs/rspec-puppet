@@ -19,9 +19,9 @@ module RSpec::Puppet
     end
 
     def raise_error(
-      error = defined?(RSpec::Matchers::BuiltIn::RaiseError::UndefinedValue) ? RSpec::Matchers::BuiltIn::RaiseError::UndefinedValue : nil, message = nil, &block
+      error = defined?(RSpec::Matchers::BuiltIn::RaiseError::UndefinedValue) ? RSpec::Matchers::BuiltIn::RaiseError::UndefinedValue : nil, message = nil, &
     )
-      RaiseError.new(error, message, &block)
+      RaiseError.new(error, message, &)
     end
   end
 end

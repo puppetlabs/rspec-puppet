@@ -143,7 +143,7 @@ module RSpec::Puppet
 
       def failure_message_generic(type, _func_obj)
         # message is mutable
-        message = +"expected #{func_name}(#{func_params}) to "
+        message = "expected #{func_name}(#{func_params}) to "
         message << 'not ' if type == :should_not
 
         if @has_expected_return

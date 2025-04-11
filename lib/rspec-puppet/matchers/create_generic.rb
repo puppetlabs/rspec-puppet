@@ -30,10 +30,10 @@ module RSpec::Puppet
         self
       end
 
-      def only_with(*args, &block)
+      def only_with(*args, &)
         params = args.shift
         @expected_params_count = (@expected_params_count || 0) + params.compact.size
-        with(params, &block)
+        with(params, &)
       end
 
       def without(*args)
@@ -62,7 +62,7 @@ module RSpec::Puppet
         self
       end
 
-      def method_missing(method, *args, &block)
+      def method_missing(method, *args, &)
         case method.to_s
         when /^with_/
           param = method.to_s.gsub(/^with_/, '')
@@ -320,7 +320,7 @@ module RSpec::Puppet
             before_refs = relationship_refs(u, :before) + relationship_refs(u, :notify)
             require_refs = relationship_refs(v, :require) + relationship_refs(u, :subscribe)
 
-            return true if before_refs.include?(v.to_ref) || require_refs.include?(u.to_ref) || (before_refs & require_refs).any?
+            return true if before_refs.include?(v.to_ref) || require_refs.include?(u.to_ref) || before_refs.intersect?(require_refs)
           end
         end
 
