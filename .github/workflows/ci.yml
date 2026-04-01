@@ -19,14 +19,17 @@ jobs:
       matrix:
         ruby_version:
           - "3.2"
+          - "4.0"
         include:
           - ruby_version: '3.2'
             puppet_gem_version: '~> 8.0'
+          - ruby_version: '4.0'
+            puppet_gem_version: '~> 9.0'
         runs_on:
           - "ubuntu-latest"
           - "windows-latest"
     name: "spec (${{ matrix.runs_on }} ruby ${{ matrix.ruby_version }} | puppet ${{matrix.puppet_gem_version}})"
-    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_ci.yml@main"
+    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_ci.yml@MAINT-Puppet_9_branch_testing"
     secrets: "inherit"
     with:
       rake_task: "spec:coverage"
