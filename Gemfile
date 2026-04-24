@@ -24,19 +24,8 @@ group :development do
 end
 
 group :test do
-  # rubocop:disable Bundler/DuplicatedGem
-  if ENV['PUPPET_GEM_VERSION']&.match?(/\A[~> ]*9\./)
-    gem 'facter', git: 'https://github.com/puppetlabs/facter-private', tag: '4.18.0', require: false
-    gem 'puppet', git: 'https://github.com/puppetlabs/puppet-private', branch: 'main', require: false
-    gem 'syslog', require: false
-    gem 'win32ole', require: false, platforms: %i[mingw x64_mingw mswin]
-  else
-    gem 'facter', *location_for(ENV.fetch('FACTER_GEM_VERSION', nil))
-    source 'https://rubygems-puppetcore.puppet.com' do
-      gem 'puppet', '~> 8.0', require: false
-    end
-  end
-  # rubocop:enable Bundler/DuplicatedGem
+  gem 'facter', *location_for(ENV.fetch('FACTER_GEM_VERSION', nil))
+  gem 'puppet', *location_for(ENV.fetch('PUPPET_GEM_VERSION', nil))
 
   gem 'json_pure'
   gem 'sync'

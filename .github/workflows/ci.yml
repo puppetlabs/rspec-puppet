@@ -29,7 +29,7 @@ jobs:
           - "ubuntu-latest"
           - "windows-latest"
     name: "spec (${{ matrix.runs_on }} ruby ${{ matrix.ruby_version }} | puppet ${{matrix.puppet_gem_version}})"
-    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_ci.yml@MAINT-Puppet_9_branch_testing"
+    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_ci.yml@main"
     secrets: "inherit"
     with:
       rake_task: "spec:coverage"
