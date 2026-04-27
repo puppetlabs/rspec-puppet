@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
-source ENV['GEM_SOURCE'] || 'https://rubygems-puppetcore.puppet.com'
+# For puppetcore, set GEM_SOURCE_PUPPETCORE = 'https://rubygems-puppetcore.puppet.com'
+gemsource_default = ENV['GEM_SOURCE'] || 'https://rubygems.org'
+gemsource_puppetcore = if ENV['PUPPET_FORGE_TOKEN']
+  'https://rubygems-puppetcore.puppet.com'
+else
+  ENV['GEM_SOURCE_PUPPETCORE'] || gemsource_default
+end
+source gemsource_default
 
 gemspec
 
-def location_for(place_or_version, fake_version = nil)
+def location_for(place_or_version, fake_version = nil, opts = {})
   git_url_regex = /\A(?<url>(https?|git)[:@][^#]*)(#(?<branch>.*))?/
   file_url_regex = %r{\Afile://(?<path>.*)}
 
@@ -13,7 +20,7 @@ def location_for(place_or_version, fake_version = nil)
   elsif place_or_version && (file_url = place_or_version.match(file_url_regex))
     ['>= 0', { path: File.expand_path(file_url[:path]), require: false }]
   else
-    [place_or_version, { require: false }]
+    [place_or_version, { require: false }.merge(opts)]
   end
 end
 
@@ -24,8 +31,8 @@ group :development do
 end
 
 group :test do
-  gem 'facter', *location_for(ENV.fetch('FACTER_GEM_VERSION', nil))
-  gem 'puppet', *location_for(ENV.fetch('PUPPET_GEM_VERSION', nil))
+  gem 'facter', *location_for(ENV.fetch('FACTER_GEM_VERSION', nil), nil, { source: gemsource_puppetcore })
+  gem 'puppet', *location_for(ENV.fetch('PUPPET_GEM_VERSION', nil), nil, { source: gemsource_puppetcore })
 
   gem 'json_pure'
   gem 'sync'
