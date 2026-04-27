@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source ENV['GEM_SOURCE'] || 'https://rubygems.org'
+source ENV['GEM_SOURCE'] || 'https://rubygems-puppetcore.puppet.com'
 
 gemspec
 
