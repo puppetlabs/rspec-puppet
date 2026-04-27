@@ -3,10 +3,10 @@
 # For puppetcore, set GEM_SOURCE_PUPPETCORE = 'https://rubygems-puppetcore.puppet.com'
 gemsource_default = ENV['GEM_SOURCE'] || 'https://rubygems.org'
 gemsource_puppetcore = if ENV['PUPPET_FORGE_TOKEN']
-  'https://rubygems-puppetcore.puppet.com'
-else
-  ENV['GEM_SOURCE_PUPPETCORE'] || gemsource_default
-end
+                         'https://rubygems-puppetcore.puppet.com'
+                       else
+                         ENV['GEM_SOURCE_PUPPETCORE'] || gemsource_default
+                       end
 source gemsource_default
 
 gemspec
