@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v5.0.1](https://github.com/puppetlabs/rspec-puppet/tree/v5.0.1) - 2026-09-03
+
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v5.0.0...v5.0.1)
+
+### Changed
+
+- (CAT-2281) Remove puppet 7 infrastructure [#133](https://github.com/puppetlabs/rspec-puppet/pull/133) ([LukasAud](https://github.com/LukasAud))
+
+### Other
+
+- Add unit tests to push line coverage above 90% [#137](https://github.com/puppetlabs/rspec-puppet/pull/137) ([bronachfalls](https://github.com/bronachfalls))
+- (CAT-2594) Prepare for Puppetcore 9 [#136](https://github.com/puppetlabs/rspec-puppet/pull/136) ([LukasAud](https://github.com/LukasAud))
+- Switch to voxpupuli-rubocop [#124](https://github.com/puppetlabs/rspec-puppet/pull/124) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v5.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v5.0.0) - 2024-09-06
 
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.2...v5.0.0)
