@@ -11,6 +11,35 @@ describe RSpec::Puppet::ManifestMatchers::Compile do
   let(:catalogue) { -> { load_catalogue(:host) } }
   let(:facts) { { 'operatingsystem' => 'Debian' } }
 
+  describe '#with_all_deps' do
+    it 'returns self' do
+      expect(subject.with_all_deps).to be(subject)
+    end
+
+    it 'enables dependency checking' do
+      subject.with_all_deps
+      expect(subject.instance_variable_get(:@check_deps)).to be(true)
+    end
+  end
+
+  describe '#failure_message_when_negated' do
+    context 'when no expected error is set' do
+      it 'says the catalogue should not compile but it does' do
+        expect(subject.failure_message_when_negated)
+          .to eq('expected that the catalogue would not compile but it does')
+      end
+    end
+
+    context 'when an expected error is set' do
+      before { subject.and_raise_error('some error') }
+
+      it 'says the catalogue should compile but it does not' do
+        expect(subject.failure_message_when_negated)
+          .to eq('expected that the catalogue would compile but it does not')
+      end
+    end
+  end
+
   describe 'a valid manifest' do
     let(:pre_condition) { 'file { "/tmp/resource": }' }
 
