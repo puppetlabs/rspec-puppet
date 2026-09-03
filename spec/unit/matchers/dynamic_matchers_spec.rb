@@ -3,8 +3,9 @@
 require 'spec_helper_unit'
 
 describe RSpec::Puppet::ManifestMatchers do
-  let(:test_class) { Class.new { include RSpec::Puppet::ManifestMatchers } }
   subject(:instance) { test_class.new }
+
+  let(:test_class) { Class.new { include RSpec::Puppet::ManifestMatchers } }
 
   describe '#method_missing' do
     context 'with a contain_ prefixed method' do
@@ -44,8 +45,9 @@ describe RSpec::Puppet::ManifestMatchers do
 end
 
 describe RSpec::Puppet::FunctionMatchers do
-  let(:test_class) { Class.new { include RSpec::Puppet::FunctionMatchers } }
   subject(:instance) { test_class.new }
+
+  let(:test_class) { Class.new { include RSpec::Puppet::FunctionMatchers } }
 
   describe '#method_missing' do
     context 'with :run' do
@@ -63,8 +65,9 @@ describe RSpec::Puppet::FunctionMatchers do
 end
 
 describe RSpec::Puppet::TypeMatchers do
-  let(:test_class) { Class.new { include RSpec::Puppet::TypeMatchers } }
   subject(:instance) { test_class.new }
+
+  let(:test_class) { Class.new { include RSpec::Puppet::TypeMatchers } }
 
   describe '#method_missing' do
     context 'with :be_valid_type' do

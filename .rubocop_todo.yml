@@ -184,7 +184,9 @@ RSpec/MultipleDescribes:
     - 'spec/classes/sysctl_common_spec.rb'
     - 'spec/defines/sysctl_before_spec.rb'
     - 'spec/functions/test_function_spec.rb'
+    - 'spec/unit/errors_spec.rb'
     - 'spec/unit/example/function_example_group_spec.rb'
+    - 'spec/unit/matchers/dynamic_matchers_spec.rb'
     - 'spec/unit/monkey_patches_spec.rb'
 
 # Offense count: 49
@@ -246,16 +248,21 @@ RSpec/SpecFilePathFormat:
     - 'spec/support_spec.rb'
     - 'spec/unit/adapters_spec.rb'
     - 'spec/unit/coverage_spec.rb'
+    - 'spec/unit/errors_spec.rb'
     - 'spec/unit/facter_impl_spec.rb'
     - 'spec/unit/matchers/allow_value_spec.rb'
     - 'spec/unit/matchers/compile_spec.rb'
     - 'spec/unit/matchers/count_generic_spec.rb'
+    - 'spec/unit/matchers/create_generic_spec.rb'
+    - 'spec/unit/matchers/dynamic_matchers_spec.rb'
     - 'spec/unit/matchers/parameter_matcher_spec.rb'
     - 'spec/unit/matchers/raise_error_spec.rb'
     - 'spec/unit/matchers/run_spec.rb'
+    - 'spec/unit/matchers/type_matchers_spec.rb'
     - 'spec/unit/monkey_patches/win32/taskscheduler_spec.rb'
     - 'spec/unit/raw_string_spec.rb'
     - 'spec/unit/sensitive_spec.rb'
+    - 'spec/unit/support_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: Include.
@@ -276,6 +283,7 @@ RSpec/VerifiedDoubles:
     - 'spec/unit/adapters_spec.rb'
     - 'spec/unit/example/function_example_group_spec.rb'
     - 'spec/unit/matchers/allow_value_spec.rb'
+    - 'spec/unit/matchers/type_matchers_spec.rb'
     - 'spec/unit/sensitive_spec.rb'
 
 # Offense count: 5

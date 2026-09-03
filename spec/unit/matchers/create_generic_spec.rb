@@ -99,7 +99,7 @@ describe RSpec::Puppet::ManifestMatchers::CreateGeneric do
       it 'adds the parameter to expected_params and returns self' do
         result = matcher.with_ensure('present')
         expect(result).to be(matcher)
-        expect(matcher.instance_variable_get(:@expected_params)).to include(['ensure', 'present'])
+        expect(matcher.instance_variable_get(:@expected_params)).to include(%w[ensure present])
       end
     end
 
@@ -108,7 +108,7 @@ describe RSpec::Puppet::ManifestMatchers::CreateGeneric do
         result = matcher.only_with_ensure('present')
         expect(result).to be(matcher)
         expect(matcher.instance_variable_get(:@expected_params_count)).to eq(1)
-        expect(matcher.instance_variable_get(:@expected_params)).to include(['ensure', 'present'])
+        expect(matcher.instance_variable_get(:@expected_params)).to include(%w[ensure present])
       end
 
       it 'accumulates count across multiple calls' do
@@ -122,7 +122,7 @@ describe RSpec::Puppet::ManifestMatchers::CreateGeneric do
       it 'adds the parameter to expected_undef_params and returns self' do
         result = matcher.without_owner('nobody')
         expect(result).to be(matcher)
-        expect(matcher.instance_variable_get(:@expected_undef_params)).to include(['owner', 'nobody'])
+        expect(matcher.instance_variable_get(:@expected_undef_params)).to include(%w[owner nobody])
       end
     end
 

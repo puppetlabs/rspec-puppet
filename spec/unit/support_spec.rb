@@ -4,19 +4,20 @@ require 'spec_helper_unit'
 require 'rspec-puppet/support'
 
 describe RSpec::Puppet::Support do
-  let(:test_class) { Class.new { include RSpec::Puppet::Support } }
   subject(:instance) { test_class.new }
+
+  let(:test_class) { Class.new { include RSpec::Puppet::Support } }
 
   describe '#guess_type_from_path' do
     {
-      'spec/classes/foo_spec.rb'      => :class,
-      'spec/defines/bar_spec.rb'      => :define,
-      'spec/functions/baz_spec.rb'    => :function,
-      'spec/hosts/host_spec.rb'       => :host,
-      'spec/types/type_spec.rb'       => :type,
+      'spec/classes/foo_spec.rb' => :class,
+      'spec/defines/bar_spec.rb' => :define,
+      'spec/functions/baz_spec.rb' => :function,
+      'spec/hosts/host_spec.rb' => :host,
+      'spec/types/type_spec.rb' => :type,
       'spec/type_aliases/alias_spec.rb' => :type_alias,
-      'spec/provider/prov_spec.rb'    => :provider,
-      'spec/other/unknown_spec.rb'    => :unknown,
+      'spec/provider/prov_spec.rb' => :provider,
+      'spec/other/unknown_spec.rb' => :unknown,
     }.each do |path, expected_type|
       it "returns :#{expected_type} for #{path}" do
         expect(instance.guess_type_from_path(path)).to eq(expected_type)
@@ -117,7 +118,7 @@ describe RSpec::Puppet::Support do
     end
 
     it 'converts an Array to a Puppet array literal' do
-      expect(instance.str_from_value(['a', 'b'])).to eq('[ "a", "b" ]')
+      expect(instance.str_from_value(%w[a b])).to eq('[ "a", "b" ]')
     end
 
     it 'converts :default to the bare keyword "default"' do
@@ -158,7 +159,7 @@ describe RSpec::Puppet::Support do
   end
 
   describe '#sanitise_resource_title' do
-    it "wraps a plain title in single quotes" do
+    it 'wraps a plain title in single quotes' do
       expect(instance.sanitise_resource_title('/tmp/foo')).to eq("'/tmp/foo'")
     end
 

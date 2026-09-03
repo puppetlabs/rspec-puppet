@@ -166,24 +166,24 @@ describe RSpec::Puppet::Coverage do
   end
 
   describe '#load_results' do
-    it 'adds touched and untouched resources from a JSON file' do
-      require 'tempfile'
-      require 'json'
-      data = {
-        'Notify[touched]'   => { 'touched' => true },
-        'Notify[untouched]' => { 'touched' => false },
-      }
+    let(:result_file) do
       file = Tempfile.new('coverage')
+      data = { 'Notify[touched]' => { 'touched' => true }, 'Notify[untouched]' => { 'touched' => false } }
       file.write(data.to_json)
       file.flush
+      file
+    end
 
-      subject.load_results(file.path)
+    after do
+      result_file.close
+      result_file.unlink
+    end
+
+    it 'adds touched and untouched resources from a JSON file' do
+      subject.load_results(result_file.path)
       result = subject.results
       expect(result[:touched]).to eq(1)
       expect(result[:untouched]).to eq(1)
-    ensure
-      file.close
-      file.unlink
     end
   end
 
@@ -286,22 +286,23 @@ describe RSpec::Puppet::Coverage do
   end
 
   describe '#merge_filters' do
-    it 'loads and removes matching filter and regex-filter files' do
-      require 'digest'
-      require 'json'
-      slug = "#{Digest::MD5.hexdigest(Dir.pwd)}-99999998"
-      filter_file      = File.join(Dir.tmpdir, "rspec-puppet-filter-#{slug}")
-      regex_filter_file = File.join(Dir.tmpdir, "rspec-puppet-filter_regex-#{slug}")
+    let(:slug) { "#{Digest::MD5.hexdigest(Dir.pwd)}-99999998" }
+    let(:filter_file) { File.join(Dir.tmpdir, "rspec-puppet-filter-#{slug}") }
+    let(:regex_filter_file) { File.join(Dir.tmpdir, "rspec-puppet-filter_regex-#{slug}") }
+
+    before do
       File.write(filter_file, ['Notify[merged_filter]'].to_json)
       File.write(regex_filter_file, ['merged.*'].to_json)
+    end
 
+    after { [filter_file, regex_filter_file].each { |f| FileUtils.rm_f(f) } }
+
+    it 'loads and removes matching filter and regex-filter files' do
       subject.merge_filters
       expect(subject.filters).to include('Notify[merged_filter]')
       expect(subject.filters_regex.map(&:source)).to include(a_string_including('merged'))
       expect(File.exist?(filter_file)).to be(false)
       expect(File.exist?(regex_filter_file)).to be(false)
-    ensure
-      [filter_file, regex_filter_file].each { |f| File.delete(f) if f && File.exist?(f) }
     end
   end
 

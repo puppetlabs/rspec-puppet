@@ -15,7 +15,7 @@ describe RSpec::Puppet::TypeMatchers::CreateGeneric do
 
   describe '#with_properties' do
     it 'adds to expected properties and returns self' do
-      result = matcher.with_properties([:ensure, :content])
+      result = matcher.with_properties(%i[ensure content])
       expect(result).to be(matcher)
       expect(matcher.instance_variable_get(:@exp_properties)).to contain_exactly(:ensure, :content)
     end
@@ -34,7 +34,7 @@ describe RSpec::Puppet::TypeMatchers::CreateGeneric do
 
   describe '#with_parameters' do
     it 'adds to expected parameters and returns self' do
-      result = matcher.with_parameters([:name, :path])
+      result = matcher.with_parameters(%i[name path])
       expect(result).to be(matcher)
       expect(matcher.instance_variable_get(:@exp_parameters)).to contain_exactly(:name, :path)
     end
