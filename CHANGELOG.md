@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v5.0.1](https://github.com/puppetlabs/rspec-puppet/tree/v5.0.1) - 2026-09-03
+
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v5.0.0...v5.0.1)
+
+### Changed
+
+- (CAT-2281) Remove puppet 7 infrastructure [#133](https://github.com/puppetlabs/rspec-puppet/pull/133) ([LukasAud](https://github.com/LukasAud))
+
 ## [v5.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v5.0.0) - 2024-09-06
 
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v4.0.2...v5.0.0)
