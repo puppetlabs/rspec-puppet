@@ -3,6 +3,7 @@
 require 'rspec-puppet/support'
 require 'rspec-puppet/example/define_example_group'
 require 'rspec-puppet/example/class_example_group'
+require 'rspec-puppet/example/fact_example_group'
 require 'rspec-puppet/example/function_example_group'
 require 'rspec-puppet/example/host_example_group'
 require 'rspec-puppet/example/type_example_group'
@@ -19,6 +20,7 @@ RSpec.configure do |c|
 
   c.rspec_puppet_include RSpec::Puppet::DefineExampleGroup, :define, %w[spec defines]
   c.rspec_puppet_include RSpec::Puppet::ClassExampleGroup, :class, %w[spec classes]
+  c.rspec_puppet_include RSpec::Puppet::FactExampleGroup, :define, %w[spec facts]
   c.rspec_puppet_include RSpec::Puppet::FunctionExampleGroup, :puppet_function, %w[spec functions]
   c.rspec_puppet_include RSpec::Puppet::HostExampleGroup, :host, %w[spec hosts]
   c.rspec_puppet_include RSpec::Puppet::TypeExampleGroup, :type, %w[spec types]
