@@ -128,6 +128,8 @@ module RSpec::Puppet
 
         Puppet::Pops::Evaluator::DeferredResolver.resolve_and_replace(node.facts, catalog)
 
+        check_encoding(catalog)
+
         catalog
       end
 
@@ -179,6 +181,42 @@ module RSpec::Puppet
         impl = impl.call if impl.is_a?(Proc)
         Object.send(:const_set, :FacterImpl, impl)
       end
+
+      # Puppet expects source code to be UTF-8, but other inputs to the
+      # compilation process can cause binary data to be added, which cause
+      # problems later when serializing the catalog as JSON. Warn or raise if
+      # there are any ASCII_8BIT strings or the byte representation does not
+      # match its encoding.
+      #
+      def check_encoding(obj, path = '')
+        case obj
+        when Puppet::Resource::Catalog
+          obj.resources.each do |r|
+            check_encoding(r)
+          end
+        when Puppet::Resource
+          obj.to_hash.each do |param, value|
+            check_encoding(value, "#{obj.type}[#{obj.title}]/#{param}")
+          end
+        when Array
+          obj.each_with_index do |elem, idx|
+            check_encoding(elem, "#{path}[#{idx}]")
+          end
+        when Hash
+          obj.each do |k, v|
+            check_encoding(k, "#{path}/key")
+            check_encoding(v, "#{path}/value")
+          end
+        when String
+          meth = RSpec.configuration.strict_catalog_encoding ? :raise : :warn
+          if obj.encoding == Encoding::ASCII_8BIT
+            send(meth, "#{path} must be wrapped in a Binary data type, not encoded as #{obj.encoding}")
+          elsif !obj.valid_encoding?
+            send(meth, "#{path} is not a valid #{obj.encoding} encoded String")
+          end
+        end
+      end
+      private :check_encoding
     end
 
     def self.get
