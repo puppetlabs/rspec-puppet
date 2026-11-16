@@ -57,6 +57,7 @@ RSpec.configure do |c|
   c.add_setting :fixture_hiera_configs, default: {}
   c.add_setting :use_fixture_spec_hiera, default: false
   c.add_setting :fallback_to_default_hiera, default: true
+  c.add_setting :strict_catalog_encoding, default: false
 
   c.before(:all) do
     RSpec::Puppet::Setup.safe_setup_directories(nil, false) if RSpec.configuration.setup_fixtures?
