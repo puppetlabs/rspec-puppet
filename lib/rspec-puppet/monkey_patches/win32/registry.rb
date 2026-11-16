@@ -72,9 +72,11 @@ module RSpec
   end
 end
 
-if Puppet::Util::Platform.windows?
+begin
+  raise LoadError unless Puppet::Util::Platform.windows?
+
   require 'win32/registry'
-else
+rescue LoadError
   module Win32
     Registry = RSpec::Puppet::Win32::Registry
   end

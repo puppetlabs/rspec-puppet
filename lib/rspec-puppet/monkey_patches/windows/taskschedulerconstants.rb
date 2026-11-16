@@ -265,9 +265,11 @@ module RSpec
   end
 end
 
-if Puppet::Util::Platform.windows?
+begin
+  raise LoadError unless Puppet::Util::Platform.windows?
+
   require 'win32/windows/constants'
-else
+rescue LoadError
   module Windows
     TaskSchedulerConstants = RSpec::Puppet::Windows::TaskSchedulerConstants
   end
