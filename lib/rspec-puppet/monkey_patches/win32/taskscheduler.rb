@@ -111,9 +111,9 @@ module RSpec
   end
 end
 
-begin
+if Puppet::Util::Platform.windows?
   require 'win32/taskscheduler'
-rescue LoadError
+else
   module Win32
     TaskScheduler = RSpec::Puppet::Win32::TaskScheduler
   end
