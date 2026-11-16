@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v6.0.1](https://github.com/puppetlabs/rspec-puppet/tree/v6.0.1) - 2026-11-16
+
+[Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v6.0.0...v6.0.1)
+
+### Fixed
+
+- Check platform before requiring Windows-only stdlib shims [#144](https://github.com/puppetlabs/rspec-puppet/pull/144) ([LukasAud](https://github.com/LukasAud))
+
 ## [v6.0.0](https://github.com/puppetlabs/rspec-puppet/tree/v6.0.0) - 2026-09-21
 
 [Full Changelog](https://github.com/puppetlabs/rspec-puppet/compare/v5.0.0...v6.0.0)
